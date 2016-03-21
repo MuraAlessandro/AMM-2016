@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Esami</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Registrazione Esami Triennale e Magistrale</h1>
+        <img src="http://image.3bmeteo.com/images/newarticles/w_663/immagine-nasa-visible-infrared-imaging-radiometer-suite-viirs-3bmeteo-66721.jpg" 
+             height="120" width="120">
+        <form action="index.html" method="GET">
+            <label for="NomeStudente"> Nome:</label> 
+            <input type="text" name="nome" id="nome"/> <br>
+            <label for="CognomeStudente">Cognome:</label> 
+            <input type="text" name="cognome" id="cognome"/> <br>
+            <label for="Matricola">Matricola:</label> 
+            <input type="number" name="matr" id="matr" /> <br>
+            
+        </form>
+        <br>
+        <select size="10" name="listaEs" id="listaEs">
+            <option value="md">MD</option>
+            <option value="pr1">PR1</option>
+            <option value="ast">AST</option>
+            <option value="are">ARE</option>
+            <option value="cdi">CDI</option>
+            <option value="fis">FIS</option>     
+        </select>
+        
+        
+        <input type="range" min="18" max="31" name="voto" id="voto" >
+        <br><br>
+        <textarea cols="4"  name="descr" id="desc" rows="4" ></textarea> <br>
+        
+        
+        <!-- submit e reset-->
+        
+        <input type="reset"  >
+        
+        
+    </body>
+</html>
+
+
+
+
+
+
+
+
+

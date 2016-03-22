@@ -22,21 +22,21 @@ and open the template in the editor.
 
          <!--Creazione del form per l'inserimento dei dati, che permetterà di inserire un nuovo oggetto-->
             <form action="venditore.html" method="GET">
-                
-                Nome oggetto:
-                <input type="text" id="nome">
+                <!--il tag label è l'etichetta che è correlata ad uno specifico input-->
+                <label for="nome">Nome oggetto:</label>
+                <input type="text" id="nome" name="nome">
 
-                Immagine dell'oggetto: 
-                <input type="url" id="url">
+                <label for="url">Immagine dell'oggetto:</label> 
+                <input type="url" id="url" name="url">
                  
-                Descrizione:  
-                <textarea rows="10" cols="20"></textarea>
+                <label for="descrizione">Descrizione:</label>
+                <textarea rows="10" cols="20" name="descrizione" id="descrizione"></textarea>
                 
-                Quantità disponibile dell'oggetto: 
-                <input type="number" id="q" min="0"><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
+                <label for="q">Quantità disponibile dell'oggetto:</label>
+                <input type="number" id="q" name="q" min="0"><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
                 
-                Prezzo dell'oggetto:
-                <input type="number" id="price" step="0.01" min="0">
+                <label for="price">Prezzo dell'oggetto:</label>
+                <input type="number" id="price" name="price" step="0.01" min="0">
                 <!--Uso il tag min perchè non è possibile che il prezzo sia un numero negativo, il minimo può essere 0, ovvero gratis-->
                 <!--Uso il tag step poichè il prezzo può essere un numero non intero, quindi è necessario utilizzare anche numeri decimali-->
                 <input type="submit" value="invia" >

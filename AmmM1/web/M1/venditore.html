@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Venditore</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Mura Alessandro">
+        <meta name="keywords" content="VENDERE, HTML, AMM">
+        <meta name="description" content="Pagina dedicata al venditore">
+    </head>
+    <body>
+        <h1>Pagina riservata al Venditore</h1>
+        <nav>
+            <a href="descrizione.html">Home di descrizione</a> 
+            <a href="login.html">Login</a>
+        </nav>
+
+         <!--Creazione del form per l'inserimento dei dati, che permetterà di inserire un nuovo oggetto-->
+            <form action="venditore.html" method="GET">
+                
+                Nome oggetto:
+                <input type="text" id="nome">
+
+                Immagine dell'oggetto: 
+                <input type="url" id="url">
+                 
+                Descrizione:  
+                <textarea rows="10" cols="20"></textarea>
+                
+                Quantità disponibile dell'oggetto: 
+                <input type="number" id="q" min="0"><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
+                
+                Prezzo dell'oggetto:
+                <input type="number" id="price" step="0.01" min="0">
+                <!--Uso il tag min perchè non è possibile che il prezzo sia un numero negativo, il minimo può essere 0, ovvero gratis-->
+                <!--Uso il tag step poichè il prezzo può essere un numero non intero, quindi è necessario utilizzare anche numeri decimali-->
+                <input type="submit" value="invia" >
+            </form>
+          
+    </body>
+</html>
+

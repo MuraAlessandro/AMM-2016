@@ -1,0 +1,45 @@
+/*Nel CSS, impostare il font per l'elemento body con i seguenti parametri:
+
+    Grandezza 14 pixel
+    Carattere 'Open Sans'
+    In caso il browser non abbia il font precedente, impostare Arial
+    Nel caso il browser non abbia il font precedente, impostare sans-serif
+    Colore nero
+*/
+
+
+body { font-size:14px; 
+			 font-family:"Open Sans", Arial, sans-serif;
+			 color:black;
+			  				
+		 }
+		 /*Impostare il colore di sfondo per l'elemento con id logo con il seguente valore esadecimale #1c345a.
+
+Impostare il colore del testo per l'elemento con id header a bianco. 
+
+Ripetere la stessa operazione con l'elemento avente id footer.
+
+Combinare il selettore scritto per l'elemento con id header e quello con id footer in una regola unica. */
+#logo { background-color:#1c345a}
+#header, #footer { color:white}
+
+/*Fare in modo che il testo degli elementi di classe current_page_item risulti in grassetto.*/
+.current_page_item { font-weight:bold}
+
+
+/*Fare in modo che gli h2 contenuti nel div con id content siano visualizzati con il seguente colore esadecimale #9e1616.*/
+div#content h2{ color:#9e1616}
+
+/*Impostare a #1c345a il colore di tutti i tag h (da h1 ad h6) con una sola regola.*/
+
+h2,h3,h4,h5,h6 {color:#1c345a}
+
+/*Impostare a #9e1616 il colore di tutti i link, sia quelli visitati che quelli non visitati. Inoltre, fare in modo che il testo sia sottolineato e in grassetto quando il mouse passa sopra il link.*/
+
+a:link, a:visited {color:#9e1616 font-weight:bold text-decoration:underline}
+
+/*Impostare a #1c345a il colore dei link che hanno come l'attributo href esattamente uguale a studente_esami.html*/
+a:link[href="studente_esami.html"] {color:#1c345a}
+
+
+

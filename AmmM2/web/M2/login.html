@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head><!-- contiene informazioni generali sulla pagina -->
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Mura Alessandro">
+        <meta name="keywords" content="LOGIN, HTML, AMM">
+        <meta name="description" content="Login del cliente">
+	<!--link per foglio di stile e per l'icona del sito-->
+        <link href="style.css" rel="stylesheet" type="text/css" media="screen">
+	<link rel="icon" href="IMG/icon.ico">
+    </head>
+    <body><!--Contiene il corpo del sito che verrà creato, ovvero il contenuto della pagina-->
+        <header>
+            <img title="logo_sito" alt="logo" src="IMG/logsc.png" width="400" height="70">
+            <h1>Effettua il Login nel nostro sito</h1>
+        </header>
+        
+        <div id="sidebar">
+            <nav> <!-- sezione di navigazione -->
+                <a href="descrizione.html" class="invio">Home di descrizione</a>
+                <a href="cliente.html" class="invio">Cliente</a>
+                <a href="venditore.html" class="invio">Venditore</a>
+            </nav>
+         </div>
+        
+        <div id="content">
+            <!--Creazione del form per l'inserimento dei dati, che poi riutilizzeremo in seguito-->
+            <form action="login.html" method="POST">
+                <label for="user">Username:</label>
+                <input type="text" name="user" id="user" value="username">
+                <label for="psw">Password:</label> 
+                <input type="password" name="psw" id="psw" >
+                <input type="reset" value="reset" id="reset">
+                <input type="submit" value="invia" id="submit" >
+            </form>
+        </div>
+        
+        
+        <footer id="social">
+            Social:   
+            <a href="https://www.facebook.com"><img title="fb" alt="foto facebook" src="IMG/facebook.png" >facebook</a>
+            <a href="https://twitter.com/"><img title="twitter" alt="foto twitter" src="IMG/twitter.png" width="13" height="13">twitter</a>
+            <a href="http://www.instagram.com/"><img title="instagram" alt="foto instagram" src="IMG/instagram.png" width="13" height="13">instagram</a>
+            <a href="https://accounts.google.com/ServiceLogin?passive=1209600&continue=https://accounts.google.com/o/oauth2/auth?approval_prompt%3Dforce%26scope%3Dprofile%2Bemail%26response_type%3Dcode%26state%3DnqyYIiHsbW7ManHLJ51l06Cfz5/OpsgnIaKXbJxpa5gqyZTQ0Mvnx9bd1FdY4qOazayszmDdXNPa3ODTy%252BPUX13enarhZ6bKZpM%253D%26redirect_uri%3Dhttp://www.forumcommunity.net/oauth.php?goo%26client_id%3D906484691177-uu53prodlfd6p743lrvbpmfm4ip5o0j4.apps.googleusercontent.com%26hl%3Dit%26from_login%3D1%26as%3D603b5c5d5d872903&ltmpl=popup&oauth=1&sarp=1&scc=1#identifier"><img title="google" alt="foto google plus" src="IMG/google.png" >google</a>
+        </footer>
+    
+        
+        
+        
+        
+        
+    </body>
+</html>

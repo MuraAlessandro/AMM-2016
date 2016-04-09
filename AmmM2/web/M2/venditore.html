@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Venditore</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Mura Alessandro">
+        <meta name="keywords" content="VENDERE, HTML, AMM">
+        <meta name="description" content="Pagina dedicata al venditore">
+	<!--link per foglio di stile e per l'icona del sito-->
+        <link href="style.css" rel="stylesheet" type="text/css" media="screen">
+	<link rel="icon" href="IMG/icon.ico">
+    </head>
+    <body>
+        
+        <header>
+            <img title="logo_sito" alt="logo" src="IMG/logsc.png" width="400" height="70">
+            <h1>Pagina riservata al Venditore</h1>
+        </header>
+        
+        <div id="sidebar" >
+            <nav>
+                <a href="descrizione.html" class="invio">Home di descrizione</a> 
+                <a href="login.html" class="invio">Login</a>
+            </nav>
+        </div>
+         <!--Creazione del form per l'inserimento dei dati, che permetterà di inserire un nuovo oggetto-->
+        <div id="content">
+            <form action="venditore.html" method="GET">
+                <!--il tag label è l'etichetta che è correlata ad uno specifico input-->
+                <label for="nome">Nome oggetto:</label>
+                <input type="text" id="nome" name="nome">
+
+                <label for="url">Immagine dell'oggetto:</label> 
+                <input type="url" id="url" name="url">
+                 
+                <label for="descrizione">Descrizione:</label>
+                <textarea rows="10" cols="20" name="descrizione" id="descrizione"></textarea>
+                
+                <label for="q">Quantità disponibile dell'oggetto:</label>
+                <input type="number" id="q" name="q" min="0"><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
+                
+                <label for="price">Prezzo dell'oggetto:</label>
+                <input type="number" id="price" name="price" step="0.01" min="0">
+                <!--Uso il tag min perchè non è possibile che il prezzo sia un numero negativo, il minimo può essere 0, ovvero gratis-->
+                <!--Uso il tag step poichè il prezzo può essere un numero non intero, quindi è necessario utilizzare anche numeri decimali-->
+                
+                <input type="submit" value="invia" id="submit">
+            </form>
+        </div>    
+         
+        <footer id="social">
+            Social:   
+            <a href="https://www.facebook.com"> <img title="fb" alt="foto facebook" src="IMG/facebook.png" >facebook</a>
+            <a href="https://twitter.com/"><img title="twitter" alt="foto twitter" src="IMG/twitter.png" width="13" height="13">twitter</a>
+            <a href="http://www.instagram.com/"><img title="instagram" alt="foto instagram" src="IMG/instagram.png" width="13" height="13">instagram</a>
+            <a href="https://accounts.google.com/ServiceLogin?passive=1209600&continue=https://accounts.google.com/o/oauth2/auth?approval_prompt%3Dforce%26scope%3Dprofile%2Bemail%26response_type%3Dcode%26state%3DnqyYIiHsbW7ManHLJ51l06Cfz5/OpsgnIaKXbJxpa5gqyZTQ0Mvnx9bd1FdY4qOazayszmDdXNPa3ODTy%252BPUX13enarhZ6bKZpM%253D%26redirect_uri%3Dhttp://www.forumcommunity.net/oauth.php?goo%26client_id%3D906484691177-uu53prodlfd6p743lrvbpmfm4ip5o0j4.apps.googleusercontent.com%26hl%3Dit%26from_login%3D1%26as%3D603b5c5d5d872903&ltmpl=popup&oauth=1&sarp=1&scc=1#identifier"><img title="google" alt="foto google plus" src="IMG/google.png" >google</a>
+        </footer>
+         
+    </body>
+</html>
+

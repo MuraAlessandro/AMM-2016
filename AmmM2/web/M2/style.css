@@ -15,30 +15,37 @@ body
     color:black; 
     font-family:"Times New Roman","Comic Sans MS",sans-serif; 
 }
+
 h1, h2, table, .center 
 {
     text-align:center; 
 }
+
 h1 
 { 
     margin-top:-1.5cm; /*utilizzo il margin-top negativo, per allineare l'immagine logo del sito con il titolo della pagina'*/
 }
+
 h2, h3 
 { 
     text-decoration:underline; 
 }
+
 a:link 
 { 
     color:#0033cc; 
 }
+
 footer > a:link 
 { 
     color:#3366ff; 
 }
+
 a:visited
 { 
     color:red; 
 }
+
 img[title="logo_sito"] 
 { 
     opacity:0.4; 
@@ -54,6 +61,7 @@ img[title="logo_sito"]
 { 
     margin-left:42%; 
 }
+
 img[title="scarpa"] 
 {
     margin-left:33%;
@@ -65,7 +73,8 @@ input:focus, textarea:focus
 { 
     background-color:black; 
     color:white; 
-} 
+}
+
 label::after, label::before, .invio::after 
 { 
     content:'\A'; white-space:pre;/*per andare a capo*/
@@ -79,6 +88,7 @@ input, textarea
     outline:none;   /*la dichiarazione outline:none; permette di eliminare il contorno quando viene selezionato il campo*/
     font-family:Verdana,"Comic Sans MS",sans-serif; 
 }
+
 #submit, #reset 
 { 
     display:block; 
@@ -102,20 +112,24 @@ table
     margin-right:auto; 
     border-collapse:collapse; 
 }
+
 table, th, td
 { 
     border: 2px solid black; 
 }
+
 .space_table
 { 
     padding-left:10px; 
     padding-right:10px;
 }
+
 th 
 {
     color:#0000e6;
     font-family:Arial;
 }
+
 td 
 { 
     color:black;
@@ -127,6 +141,7 @@ table tr:nth-child(odd)
 { 
     background-color:white; 
 }
+
 table tr:nth-child(even)
 { 
     background-color:silver;
@@ -138,6 +153,7 @@ footer
 { 
     margin-top:10px; 
 }
+
 #social 
 {
     bottom:0; 
@@ -157,6 +173,7 @@ footer
     { 
         margin-top:-10%;
     }
+    
     #sidebar 
     {
         margin-right:80%;
@@ -181,10 +198,12 @@ footer
         margin-left:33%; 
         margin-right:33%;
     }
+    
     #main
     { 
         margin-top:5%;
     }
+    
     h1
     { 
         margin-top:0cm;
@@ -195,10 +214,12 @@ footer
         border-bottom:2px solid black; 
         margin-right:0%;
     }
+    
     #sidebar 
     {
         margin-bottom:10%; 
     }
+    
     nav 
     { 
         text-align:center; 
@@ -230,6 +251,7 @@ footer
         font-size:12px; 
         word-wrap:break-word; /*la proprietà word-wrap settato a break-word, mi permette di spezzare la parola per ragioni di spazio*/
     }
+    
     
     #submit,#reset
     {

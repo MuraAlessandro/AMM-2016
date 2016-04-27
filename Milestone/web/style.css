@@ -1,0 +1,267 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23-mar-2016, 22.47.40
+    Author     : Ale
+*/
+
+body 
+{
+    background-image:url("IMG/back.jpg"); 
+    background-color:silver; 
+    color:black; 
+    font-family:"Times New Roman","Comic Sans MS",sans-serif; 
+}
+
+h1, h2, table, .center 
+{
+    text-align:center; 
+}
+
+h1 
+{ 
+    margin-top:-1.5cm; /*utilizzo il margin-top negativo, per allineare l'immagine logo del sito con il titolo della pagina'*/
+}
+
+h2, h3 
+{ 
+    text-decoration:underline; 
+}
+
+a:link 
+{ 
+    color:#0033cc; 
+}
+
+footer > a:link 
+{ 
+    color:#3366ff; 
+}
+
+a:visited
+{ 
+    color:red; 
+}
+
+img[title="logo_sito"] 
+{ 
+    opacity:0.4; 
+}
+
+
+#sidebar 
+{ 
+    margin-bottom:10px; 
+}
+
+#content 
+{ 
+    margin-left:42%; 
+}
+
+img[title="scarpa"] 
+{
+    margin-left:33%;
+    margin-right:33%;
+}
+
+/*Css per i campi di input*/
+input:focus, textarea:focus 
+{ 
+    background-color:black; 
+    color:white; 
+}
+
+label::after, label::before, .invio::after 
+{ 
+    content:'\A'; white-space:pre;/*per andare a capo*/
+} 
+
+
+input, textarea 
+{ 
+    border-radius:5px; /*la proprietà border-radius mi permette di arrotondare i bordi*/
+    border: 1px solid #a9a9a9; 
+    outline:none;   /*la dichiarazione outline:none; permette di eliminare il contorno quando viene selezionato il campo*/
+    font-family:Verdana,"Comic Sans MS",sans-serif; 
+}
+
+#submit, #reset 
+{ 
+    display:block; 
+    margin-top:0.2cm;
+    margin-bottom:0.2cm;
+    margin-left:10%; 
+}
+
+/*i seguenti id fanno tutti parte dei tag input che voglio fare della stessa dimensione
+  sono esclusi i tag input riguardanti submit e reset*/
+#nome, #url, #q, #price , #user, #psw, textarea 
+{ 
+    width:170px; 
+    padding: 2px; 
+}
+
+/*Css per le tabelle*/
+table 
+{ 
+    margin-left:auto;
+    margin-right:auto; 
+    border-collapse:collapse; 
+}
+
+table, th, td
+{ 
+    border: 2px solid black; 
+}
+
+.space_table
+{ 
+    padding-left:10px; 
+    padding-right:10px;
+}
+
+th 
+{
+    color:#0000e6;
+    font-family:Arial;
+}
+
+td 
+{ 
+    color:black;
+    font-family:"Comic Sans MS"; 
+}
+
+/*Utilizzo le pseudo-classi per colorare in modo differente le righe pari e dispari della tabella*/
+table tr:nth-child(odd) 
+{ 
+    background-color:white; 
+}
+
+table tr:nth-child(even)
+{ 
+    background-color:silver;
+}
+
+
+/*Css per il footer*/
+footer
+{ 
+    margin-top:10px; 
+}
+
+#social 
+{
+    bottom:0; 
+    background-color:black; 
+    color:white; 
+    text-align:center; 
+    margin-bottom:0.1cm; 
+    word-spacing:0.2cm;/*la proprietà word-spacing mi permette di mettere un determinato spazio tra una parola è l'altra.*/
+    /* margin-left:33%; margin-right:33%; position:fixed;*/
+}
+
+/*media query*/
+@media screen and (min-width:1024px)
+{
+    /*#social {  margin-left:33%; margin-right:33%;}*/
+    #main 
+    { 
+        margin-top:-10%;
+    }
+    
+    #sidebar 
+    {
+        margin-right:80%;
+        padding:10px; 
+        margin-bottom:10px;
+    }
+
+}
+@media screen and (min-width:481px) and (max-width:1023px)
+{
+    #content 
+    {
+        margin-left:33%; 
+        margin-right:33%; 
+    }
+
+}
+@media screen and (max-width:480px)
+{
+    #content 
+    { 
+        margin-left:33%; 
+        margin-right:33%;
+    }
+    
+    #main
+    { 
+        margin-top:5%;
+    }
+    
+    h1
+    { 
+        margin-top:0cm;
+    }
+    
+    header, #sidebar 
+    {
+        border-bottom:2px solid black; 
+        margin-right:0%;
+    }
+    
+    #sidebar 
+    {
+        margin-bottom:10%; 
+    }
+    
+    nav 
+    { 
+        text-align:center; 
+    }
+    
+    /*non visualizzo tutte le immagini ad eccezione di quelle dentro il tag table*/
+    footer img, img[title="scarpa"], header > img  
+    { 
+        display:none;
+    }
+    
+    .space_table 
+    { 
+        padding-left:0px; 
+        padding-right:0px;
+    }
+    
+    /*ridimensiono i form (ad eccezione dei pulsanti)*/
+    #nome, #url, #q, #price , #user, #psw, textarea 
+    {
+        width:80%; 
+    }
+    
+    
+    table 
+    {
+        table-layout:fixed;
+        width:100%; 
+        font-size:12px; 
+        word-wrap:break-word; /*la proprietà word-wrap settato a break-word, mi permette di spezzare la parola per ragioni di spazio*/
+    }
+    
+    
+    #submit,#reset
+    {
+        margin-left:33%;
+    }
+    /*ridimensiono le immagini della tabella (che sono le uniche che terrò)*/
+    img 
+    {
+        max-width:100%;
+        height:auto;
+    }
+    
+}

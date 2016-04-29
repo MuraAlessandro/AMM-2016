@@ -7,21 +7,19 @@ package milestone.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import milestone.classi.ObjectSale;
-import milestone.classi.ObjectSaleFactory;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Ale
  */
-@WebServlet(name = "ClientServlet", urlPatterns = {"/cliente.html"})
-public class ClientServlet extends HttpServlet {
+@WebServlet(name = "Venditore", urlPatterns = {"/venditore.html"})
+public class VenditoreServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,12 +33,14 @@ public class ClientServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-
-        ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
-        request.setAttribute("objects", lista);
         
-        request.getRequestDispatcher("cliente.jsp").forward(request, response);
+        /*HttpSession session = request.getSession(false);
+        
+        if(session !=null && new Boolean (true).equals(session.getAttribute("loggedIn")))
+            request.getRequestDispatcher("venditore.jsp").forward(request, response);
+        else
+            request.getRequestDispatcher("login.jsp").forward(request, response);*/
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,8 +82,4 @@ public class ClientServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
-    
-    
-    
 }

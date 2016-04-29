@@ -38,9 +38,19 @@ and open the template in the editor.
             </nav>
          </div>
         
-        <div id="content">
+        
+        
+        
+        
+        <div id="content_page" class="error">
+            <!--${loggedIn}-->
+                <c:if test="${loggedIn == false }">
+                    <h2>Username e/o Password errato</h2>
+                </c:if>
+        </div>
+        <div id="content">    
             <!--Creazione del form per l'inserimento dei dati, che poi riutilizzeremo in seguito-->
-            <form action="login.jsp" method="POST">
+            <form action="login.html" method="POST">
                 <label for="user">Username:</label>
                 <input type="text" name="user" id="user" value="username">
                 <label for="psw">Password:</label> 
@@ -48,7 +58,13 @@ and open the template in the editor.
                 <input type="reset" value="reset" id="reset">
                 <input type="submit" value="invia" id="submit" name="submit" >
             </form>
+            
+            
+            
+            
         </div>
+       
+        
         
         
         <%@include file="footer.jsp" %>

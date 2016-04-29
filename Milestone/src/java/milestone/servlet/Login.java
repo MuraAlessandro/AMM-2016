@@ -35,46 +35,62 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        boolean loggedIn=false;
+        HttpSession session = request.getSession(false);
         
-        
-        HttpSession session = request.getSession();
-        
+        session.setAttribute("loggedIn", null);   
+                
         if(request.getParameter("submit") != null)
         {
-            // Preleva i dati inviati
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
             
-            ArrayList<Cliente> listaClienti = ClienteFactory.getInstance().getClientList();
+            // Preleva i dati inviati
+            String username = request.getParameter("user");
+            String password = request.getParameter("psw");
+            
+            //Ricerco se 
+            ArrayList<Cliente> listaClienti = ClienteFactory.getInstance().getClientList();//restituisce la lista
             for(Cliente u : listaClienti)
             {
-                if(u.getUsername().equals(username) &&   u.getPassword().equals(password))
+                if(u.getUsername().equals(username) &&   u.getPassword().equals(password))//controlla se ce qualche corrispondenza
                 {
-                    session.setAttribute("loggedIn", true);
+                    session.setAttribute("loggedIn", true);//se ce setto a true
+                    //loggedIn = true;
+       
+                  
+                        request.setAttribute("cliente", u);                     
+                        ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
+                        request.setAttribute("objects", lista);
+                        request.getRequestDispatcher("cliente.jsp").forward(request, response);
                     
-                    if(u instanceof Cliente) 
-                    {
-                        request.setAttribute("cliente", u);
-                       // request.setAttribute("alunni", UtentiFactory.getInstance().getStudenteList());
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
-                    }
                                       
                 }
             }
             
-            ArrayList<Venditore> vende = VenditoreFactory.getInstance().getSellerList();
-            for(Venditore u : vende)
+            
+            ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
+            for(Venditore u : listaVenditori)
             {
                 if(u.getUsername().equals(username) &&    u.getPassword().equals(password))
                 {
                     session.setAttribute("loggedIn", true);
-                    {
+                    loggedIn=true;
+                    
+                    
                         request.setAttribute("venditore", u);
-                        request.getRequestDispatcher("login.jsp").forward(request, response);  
-                    }  
+                        request.getRequestDispatcher("venditore.jsp").forward(request, response);  
+                    
                 }
             }
             
+            if(loggedIn != true)
+                session.setAttribute("loggedIn", false);
+     /*   if(loggedIn==true)
+        {                 
+                    request.setAttribute("username", request.getParameter("user"));
+                    request.setAttribute("password", request.getParameter("psw"));
+        }      */  
+        
+        
         }
         request.getRequestDispatcher("login.jsp").forward(request, response);
  

@@ -41,7 +41,7 @@ footer > a:link
     color:#3366ff; 
 }
 
-a:visited
+a:visited, .error
 { 
     color:red; 
 }

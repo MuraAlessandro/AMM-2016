@@ -43,23 +43,27 @@ public class VenditoreServlet extends HttpServlet {
       //  request.setAttribute("form", false);
         
       
-      
+        
         ArrayList<ObjectSale> objects = ObjectSaleFactory.getInstance().getSellingObjectList();
         if(session != null && new Boolean (true).equals(session.getAttribute("logSel"))){
            
             if(request.getParameter("submit") != null){
-                
+                    //per calcolare un id differente per tutti gli oggetti
+                    Integer num = null;
+                    for(ObjectSale u : objects){
+                        num=u.getId();
+                    }
+                    
                     ObjectSale obj = new ObjectSale();
-                    obj.setId(8);
+                    obj.setId(num+1);
                     obj.setNome(request.getParameter("nome"));
                     obj.setDescrizione(request.getParameter("descrizione"));
                     obj.setUrl(request.getParameter("url"));
                     // Setto l'id al venditore corrispondente 
                     ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
-                    for(Venditore u : listaVenditori)
-                    {
+                    for(Venditore u : listaVenditori){
                         //request.setAttribute("cd",u.getId());
-                        // request.setAttribute("idV",request.getParameter("idV"));
+                        //request.setAttribute("idV",request.getParameter("idV"));
                       
                         if(u.getId().equals(Integer.parseInt(request.getParameter("idV"))))//controlla se ce qualche corrispondenza
                                 obj.setIdVenditore(Integer.parseInt(request.getParameter("idV")));

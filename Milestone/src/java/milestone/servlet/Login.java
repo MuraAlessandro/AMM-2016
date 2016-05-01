@@ -36,18 +36,18 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(true);
         session.setAttribute("logClient", null);   
         session.setAttribute("logSel", null);
         
         if(request.getParameter("submit") != null)
         {
-            
+           
             // Preleva i dati inviati
             String username = request.getParameter("user");
             String password = request.getParameter("psw");
             
-            //Ricerco se 
+            //Importo la lista  
             ArrayList<Cliente> listaClienti = ClienteFactory.getInstance().getClientList();//restituisce la lista
             for(Cliente u : listaClienti)
             {
@@ -62,8 +62,7 @@ public class Login extends HttpServlet {
                 else
                     session.setAttribute("logClient", false);
             }
-            
-            
+            //stessa cosa per i venditori
             ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
             for(Venditore u : listaVenditori)
             {
@@ -71,7 +70,7 @@ public class Login extends HttpServlet {
                 {
                     session.setAttribute("logSel", true);
                     request.setAttribute("venditore", u);
-                    request.setAttribute("id", u.getId());
+                    request.setAttribute("id", u.getId());//mi serve per il caricamento dell'oggetto
                     request.getRequestDispatcher("venditore.jsp").forward(request, response);  
                     
                 }

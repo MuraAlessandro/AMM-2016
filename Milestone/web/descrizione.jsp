@@ -36,7 +36,7 @@ and open the template in the editor.
         ${logClient} - ${logSel}
         
         <c:if test="${logClient== true || logSel == true}">
-                 <a href="descrizione.html">logout</a>
+                 <a href="descrizione.html?ss=1">logout</a>
         </c:if>
         
         <nav>Effettua il <a href="login.html" class="invio">Login</a></nav> <!-- sezione di navigazione -->

@@ -31,6 +31,8 @@ public class Venditore extends Utente {
     public void setImpresa(String impresa) {
         this.impresa = impresa;
     }
-  
     
+    public void vendi(Venditore venditore, ObjectSale object){
+              venditore.getConto().saldo=venditore.conto.getSaldo()+object.getPrice();
+    }
 }

@@ -13,7 +13,7 @@ package milestone.classi;
 public class Conto {
     
     //private int id;
-    private double saldo;
+    double saldo;
     
     /**
      * @return the saldo

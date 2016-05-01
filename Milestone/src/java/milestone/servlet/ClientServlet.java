@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import milestone.classi.ObjectSale;
 import milestone.classi.ObjectSaleFactory;
 
+
 /**
  *
  * @author Ale
@@ -38,19 +39,27 @@ public class ClientServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
      
-        HttpSession session = request.getSession(false); 
+     HttpSession session = request.getSession(false); 
+    
+     ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
      //   HttpSession session = request.getSession();
      //  session.getAttribute("logClient");
      if(session !=null && new Boolean (true).equals(session.getAttribute("logClient"))){
-         
-        ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
+
         request.setAttribute("objects", lista);   
         request.getRequestDispatcher("cliente.jsp").forward(request, response);  
      }
         else
             request.getRequestDispatcher("login.jsp").forward(request, response);
          
-     
+     if(request.getParameter("obID")!=null)
+        for(ObjectSale u : lista){
+            if(u.getId().equals(Integer.parseInt(request.getParameter("obID"))))
+                request.setAttribute("oggetto", u);
+            request.setAttribute("conferma",true);
+            request.getRequestDispatcher("cliente.jsp").forward(request, response);
+        }
+     request.setAttribute("n", request.getParameter("obID"));
      
     }
 

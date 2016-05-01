@@ -31,9 +31,9 @@ and open the template in the editor.
         </header>
         
         <div id="sidebar">
-             <c:if test="${logClient== true || logSel == true}">
-                 <a href="descrizione.html">logout</a>
-             </c:if>   
+           <!--  <c:if test="${logClient== true || logSel == true}">
+                 <a href="descrizione.html?ss=1">logout</a>
+             </c:if>-->   
             <nav> <!-- sezione di navigazione -->
                 <a href="descrizione.html" class="invio">Home di descrizione</a>
                 <a href="cliente.html" class="invio">Cliente</a>
@@ -42,8 +42,8 @@ and open the template in the editor.
          </div>
         
         
-        
-        <!--${logClient}-${logSel}-->
+        LogClient - logSel <br>
+        ${logClient}-${logSel}
         
         <div id="content_page" class="error">
             <c:if test="${(logClient == false && logSel == false) || logClient == false || logSel == false}">    

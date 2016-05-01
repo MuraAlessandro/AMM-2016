@@ -39,8 +39,8 @@ and open the template in the editor.
         </div>
          <!--Creazione del form per l'inserimento dei dati, che permetterà di inserire un nuovo oggetto-->
         <div id="content">
-            ${logSel} ${form} - ${nome}--
-            ${error}
+            LogSel - form - nome<br>
+            ${logSel} ${form} - ${nome}-
         <c:if test="${form==null}">    
             <form action="venditore.html" method="GET">
                 <!--il tag label è l'etichetta che è correlata ad uno specifico input-->
@@ -76,7 +76,7 @@ and open the template in the editor.
                 <label>Prezzo: ${obj.price}</label>
                 <label>Descrizione: ${obj.descrizione}</label>
                 <label>Idvenditore: ${obj.idVenditore}</label>
-                
+                <label>Id: ${obj.id}</label>
                 </div>
             </c:if> 
         </div>    

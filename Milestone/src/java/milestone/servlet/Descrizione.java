@@ -41,8 +41,8 @@ public class Descrizione extends HttpServlet {
         
             request.getRequestDispatcher("cliente.jsp").forward(request, response);
         }*/
-        
-       
+       if(request.getParameter("ss") != null)
+           session.invalidate();
        
         request.getRequestDispatcher("descrizione.jsp").forward(request, response);
     }

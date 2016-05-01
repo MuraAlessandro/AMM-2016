@@ -31,6 +31,9 @@ and open the template in the editor.
         </header>
         
         <div id="sidebar">
+             <c:if test="${logClient== true || logSel == true}">
+                 <a href="descrizione.html">logout</a>
+             </c:if>   
             <nav> <!-- sezione di navigazione -->
                 <a href="descrizione.html" class="invio">Home di descrizione</a>
                 <a href="cliente.html" class="invio">Cliente</a>
@@ -40,36 +43,36 @@ and open the template in the editor.
         
         
         
-        
+        <!--${logClient}-${logSel}-->
         
         <div id="content_page" class="error">
-            <!--${loggedIn}-->
-                <c:if test="${loggedIn == false }">
-                    <h2>Username e/o Password errato</h2>
-                </c:if>
+            <c:if test="${(logClient == false && logSel == false) || logClient == false || logSel == false}">    
+                         <h2><!--Username e/o Password errato--> Accesso negato</h2>
+            </c:if>
+           <!-- <c:if test="${logClient == null}">    
+                        <h2>Accesso negato, non sei un cliente</h2>
+            </c:if>
+            <c:if test="${logSel == null}">    
+                        <h2>Accesso negato, non sei un venditore</h2>
+            </c:if>-->
         </div>
-        <div id="content">    
-            <!--Creazione del form per l'inserimento dei dati, che poi riutilizzeremo in seguito-->
-            <form action="login.html" method="POST">
-                <label for="user">Username:</label>
-                <input type="text" name="user" id="user" value="username">
-                <label for="psw">Password:</label> 
-                <input type="password" name="psw" id="psw" >
-                <input type="reset" value="reset" id="reset">
-                <input type="submit" value="invia" id="submit" name="submit" >
-            </form>
-            
-            
-            
-            
-        </div>
-       
-        
+               
+        <c:if test="${logClient != true && logSel != true}">
+            <div id="content">    
+                <!--Creazione del form per l'inserimento dei dati, che poi riutilizzeremo in seguito-->
+                <form action="login.html" method="POST">
+                    <input type="hidden" name="bb" value="true">
+                    <label for="user">Username:</label>
+                    <input type="text" name="user" id="user" value="">
+                    <label for="psw">Password:</label> 
+                    <input type="password" name="psw" id="psw" >
+                    <input type="reset" value="reset" id="reset">
+                    <input type="submit" value="invia" id="submit" name="submit" >
+                </form>    
+            </div>
+        </c:if> 
         
         
         <%@include file="footer.jsp" %>
-    
-              
-        
     </body>
 </html>

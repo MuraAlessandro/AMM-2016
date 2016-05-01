@@ -28,23 +28,25 @@ public class VenditoreFactory {
         Venditore vend1 = new Venditore();
         vend1.setImpresa("TuttoTacchi");
         vend1.setUsername("maniR");
-        vend1.setPassword("a");
+        vend1.setPassword("m");
         vend1.setNome("Manila");
         vend1.setCognome("Rossi");
-        vend1.setId(0);
-        vend1.setIdConto(0);
+        vend1.setId(15);
+        vend1.conto.setSaldo(300.99);
         listaVenditori.add(vend1);
         
         
         Venditore vend2 = new Venditore();
-        vend1.setImpresa("JapanShoes");
+        vend2.setImpresa("JapanShoes");
         vend2.setUsername("jss");
         vend2.setPassword("b");
         vend2.setNome("Ilario");
         vend2.setCognome("Sakata");
         vend2.setId(1);
-        vend1.setIdConto(1);
+        vend2.conto.setSaldo(40000.00);
         listaVenditori.add(vend2);
+
+        
 
     }
     
@@ -52,5 +54,5 @@ public class VenditoreFactory {
        return listaVenditori;
     }
     
-    
+   
 }

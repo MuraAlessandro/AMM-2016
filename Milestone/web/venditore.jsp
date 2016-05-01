@@ -39,27 +39,46 @@ and open the template in the editor.
         </div>
          <!--Creazione del form per l'inserimento dei dati, che permetterà di inserire un nuovo oggetto-->
         <div id="content">
-            <form action="venditore.jsp" method="GET">
+            ${logSel} ${form} - ${nome}--
+            ${error}
+        <c:if test="${form==null}">    
+            <form action="venditore.html" method="GET">
                 <!--il tag label è l'etichetta che è correlata ad uno specifico input-->
                 <label for="nome">Nome oggetto:</label>
                 <input type="text" id="nome" name="nome">
 
                 <label for="url">Immagine dell'oggetto:</label> 
-                <input type="url" id="url" name="url">
+                <input type="url" id="url" name="url" >
                  
                 <label for="descrizione">Descrizione:</label>
-                <textarea rows="10" cols="20" name="descrizione" id="descrizione"></textarea>
+                <textarea rows="10" cols="20" id="descrizione" name="descrizione" ></textarea>
                 
                 <label for="q">Quantità disponibile dell'oggetto:</label>
-                <input type="number" id="q" name="q" min="0"><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
+                <input type="number" id="q" name="q" min="1" value="1"><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
                 
                 <label for="price">Prezzo dell'oggetto:</label>
-                <input type="number" id="price" name="price" step="0.01" min="0">
+                <input type="number" id="price" name="price" step="0.01" min="0" value="0.01">
                 <!--Uso il tag min perchè non è possibile che il prezzo sia un numero negativo, il minimo può essere 0, ovvero gratis-->
                 <!--Uso il tag step poichè il prezzo può essere un numero non intero, quindi è necessario utilizzare anche numeri decimali-->
                 
-                <input type="submit" value="invia" id="submit">
+                <input type="hidden" name="idV" value="${id}">
+                <input type="submit" value="invia" id="submit" name="submit">
             </form>
+             </c:if> 
+             ${b}--------
+            //////${cd}////${idV}
+            <c:if test="${form==true}">
+                <div>
+                    <strong>Inserimento riuscito</strong>
+                <label>Nome: ${obj.nome}</label>
+                <label><img title=" scarpa " alt="Foto di una scarpa" src="${obj.url}" width="150" height="150"></label>
+                <label>Quantità: ${obj.q}</label>
+                <label>Prezzo: ${obj.price}</label>
+                <label>Descrizione: ${obj.descrizione}</label>
+                <label>Idvenditore: ${obj.idVenditore}</label>
+                
+                </div>
+            </c:if> 
         </div>    
          
         <%@include file="footer.jsp" %>

@@ -145,7 +145,7 @@ public class ObjectSaleFactory {
                             "- Giro caviglia imbottito \n" +
                             "- Tacca di flessione davanti \n" +
                             "- Suola antiscivolo");
-        obj8.setPrice(45);
+        obj8.setPrice(45.00);
         obj8.setQ(17);
         obj8.setUrl("IMG/bimbo.png");
         obj8.setIdVenditore(1);

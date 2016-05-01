@@ -16,8 +16,8 @@ public class ObjectSale {
     private String nome;
     private String url;
     private String descrizione;
-    private int q;//quantità
-    private double price;
+    private Integer q;//quantità
+    private Double price;
     private int idVenditore;
     
     /**
@@ -79,14 +79,14 @@ public class ObjectSale {
     /**
      * @return the q
      */
-    public int getQ() {
+    public Integer getQ() {
         return q;
     }
 
     /**
      * @param q the q to set
      */
-    public void setQ(int q) {
+    public void setQ(Integer q) {
       //  if(q >= 1)
             this.q = q;
       //  else
@@ -97,14 +97,14 @@ public class ObjectSale {
     /**
      * @return the price
      */
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     /**
      * @param price the price to set
      */
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
        // if(price >= 0.0)
             this.price = price;
        // else

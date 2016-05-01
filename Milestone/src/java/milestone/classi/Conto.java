@@ -12,8 +12,8 @@ package milestone.classi;
  */
 public class Conto {
     
-    private int id;
-    double saldo;
+    //private int id;
+    private double saldo;
     
     /**
      * @return the saldo
@@ -32,17 +32,23 @@ public class Conto {
     /**
      * @return the id
      */
-    public int getId() {
+  /*  public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+  /*  public void setId(int id) {
         this.id = id;
     }
-    
-    
+*/
+
+
+
+
+
+
+
 
 }

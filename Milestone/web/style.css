@@ -16,7 +16,7 @@ body
     font-family:"Times New Roman","Comic Sans MS",sans-serif; 
 }
 
-h1, h2, table, .center 
+h1, h2, table, .center, .new
 {
     text-align:center; 
 }

@@ -7,12 +7,17 @@ package milestone.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import milestone.classi.ObjectSale;
+import milestone.classi.ObjectSaleFactory;
+import milestone.classi.Venditore;
+import milestone.classi.VenditoreFactory;
 
 /**
  *
@@ -34,12 +39,63 @@ public class VenditoreServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        /*HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
+      //  request.setAttribute("form", false);
         
-        if(session !=null && new Boolean (true).equals(session.getAttribute("loggedIn")))
+      
+      
+        ArrayList<ObjectSale> objects = ObjectSaleFactory.getInstance().getSellingObjectList();
+        if(session != null && new Boolean (true).equals(session.getAttribute("logSel"))){
+           
+            if(request.getParameter("submit") != null){
+                
+                    ObjectSale obj = new ObjectSale();
+                    obj.setId(8);
+                    obj.setNome(request.getParameter("nome"));
+                    obj.setDescrizione(request.getParameter("descrizione"));
+                    obj.setUrl(request.getParameter("url"));
+                    // Setto l'id al venditore corrispondente 
+                    ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
+                    for(Venditore u : listaVenditori)
+                    {
+                        //request.setAttribute("cd",u.getId());
+                        // request.setAttribute("idV",request.getParameter("idV"));
+                      
+                        if(u.getId().equals(Integer.parseInt(request.getParameter("idV"))))//controlla se ce qualche corrispondenza
+                                obj.setIdVenditore(Integer.parseInt(request.getParameter("idV")));
+                    }
+                  /*  //correzzione errori di inserimento
+                   if(obj.getNome()== "" || obj.getUrl()== "" || obj.getDescrizione()== ""){
+                        
+                        String error="Devi compilare tutti i campi per poter inserire il nuovo prodotto";
+                        request.setAttribute("error", error);
+                        request.setAttribute("form", null);
+                        request.getRequestDispatcher("venditore.jsp").forward(request, response);
+                    }
+                    */
+                    //try{
+                    obj.setPrice(Double.parseDouble(request.getParameter("price")));
+                    obj.setQ(Integer.parseInt(request.getParameter("q")));
+                   /* }
+                    catch(NumberFormatException exception){
+                    String error="Devi compilare tutti i campi per poter inserire il nuovo prodotto";
+                        request.setAttribute("error", error);
+                       // request.setAttribute("form", null);
+                        //request.getRequestDispatcher("venditore.jsp").forward(request, response);
+                    }*/
+                    
+                    request.setAttribute("obj", obj);
+                    objects.add(obj);
+
+                    request.setAttribute("form", true);
+                   
+                    
+                    }
             request.getRequestDispatcher("venditore.jsp").forward(request, response);
+        }    
         else
-            request.getRequestDispatcher("login.jsp").forward(request, response);*/
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        
         
     }
 

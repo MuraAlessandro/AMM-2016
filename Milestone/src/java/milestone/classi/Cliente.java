@@ -12,20 +12,20 @@ package milestone.classi;
  */
 public class Cliente extends Utente
 {
-    private String foto;
+ /*   private String foto;
     //vendi
     
     /**
      * @return the foto
      */
-    public String getFoto() {
+   /* public String getFoto() {
         return foto;
     }
 
     /**
      * @param foto the foto to set
      */
-    public void setFoto(String foto) {
+   /* public void setFoto(String foto) {
         this.foto = foto;
-    }
+    }*/
 }

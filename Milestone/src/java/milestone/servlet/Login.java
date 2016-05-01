@@ -35,11 +35,11 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        boolean loggedIn=false;
-        HttpSession session = request.getSession(false);
         
-        session.setAttribute("loggedIn", null);   
-                
+        HttpSession session = request.getSession(false);
+        session.setAttribute("logClient", null);   
+        session.setAttribute("logSel", null);
+        
         if(request.getParameter("submit") != null)
         {
             
@@ -53,45 +53,42 @@ public class Login extends HttpServlet {
             {
                 if(u.getUsername().equals(username) &&   u.getPassword().equals(password))//controlla se ce qualche corrispondenza
                 {
-                    session.setAttribute("loggedIn", true);//se ce setto a true
-                    //loggedIn = true;
-       
-                  
-                        request.setAttribute("cliente", u);                     
-                        ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
-                        request.setAttribute("objects", lista);
-                        request.getRequestDispatcher("cliente.jsp").forward(request, response);
-                    
-                                      
+                    session.setAttribute("logClient", true);//se ce setto a true
+                    request.setAttribute("cliente", u);                     
+                    ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
+                    request.setAttribute("objects", lista);
+                    request.getRequestDispatcher("cliente.jsp").forward(request, response); 
                 }
+                else
+                    session.setAttribute("logClient", false);
             }
             
             
             ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
             for(Venditore u : listaVenditori)
             {
-                if(u.getUsername().equals(username) &&    u.getPassword().equals(password))
+                if(u.getUsername().equals(username) && u.getPassword().equals(password))
                 {
-                    session.setAttribute("loggedIn", true);
-                    loggedIn=true;
-                    
-                    
-                        request.setAttribute("venditore", u);
-                        request.getRequestDispatcher("venditore.jsp").forward(request, response);  
+                    session.setAttribute("logSel", true);
+                    request.setAttribute("venditore", u);
+                    request.setAttribute("id", u.getId());
+                    request.getRequestDispatcher("venditore.jsp").forward(request, response);  
                     
                 }
+                else
+                    session.setAttribute("logSel", false);
             }
             
-            if(loggedIn != true)
-                session.setAttribute("loggedIn", false);
-     /*   if(loggedIn==true)
-        {                 
-                    request.setAttribute("username", request.getParameter("user"));
-                    request.setAttribute("password", request.getParameter("psw"));
-        }      */  
-        
+            
+            
+                    
+            //if((Boolean)session.getAttribute("logSel") == false)
+            
+          
+   
         
         }
+       
         request.getRequestDispatcher("login.jsp").forward(request, response);
  
     }

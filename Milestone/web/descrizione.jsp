@@ -33,6 +33,12 @@ and open the template in the editor.
         <h1>Ecommerce Scarpe</h1>
     </header>
     <div  id="sidebar">
+        ${logClient} - ${logSel}
+        
+        <c:if test="${logClient== true || logSel == true}">
+                 <a href="descrizione.html">logout</a>
+        </c:if>
+        
         <nav>Effettua il <a href="login.html" class="invio">Login</a></nav> <!-- sezione di navigazione -->
         
         <ol><!--creazione del sommario-->

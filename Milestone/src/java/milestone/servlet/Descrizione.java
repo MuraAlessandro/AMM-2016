@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,6 +34,16 @@ public class Descrizione extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        HttpSession session = request.getSession();
+       /* if(session.getAttribute("loggedIn").equals(true))
+            {}*/
+       /* if(session != null && new Boolean(true).equals(session.getAttribute(logClient))){
+        
+            request.getRequestDispatcher("cliente.jsp").forward(request, response);
+        }*/
+        
+       
+       
         request.getRequestDispatcher("descrizione.jsp").forward(request, response);
     }
 

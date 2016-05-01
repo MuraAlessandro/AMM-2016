@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import milestone.classi.ObjectSale;
 import milestone.classi.ObjectSaleFactory;
 
@@ -36,11 +37,21 @@ public class ClientServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-
+     
+        HttpSession session = request.getSession(false); 
+     //   HttpSession session = request.getSession();
+     //  session.getAttribute("logClient");
+     if(session !=null && new Boolean (true).equals(session.getAttribute("logClient"))){
+         
         ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
-        request.setAttribute("objects", lista);
-        
-        request.getRequestDispatcher("cliente.jsp").forward(request, response);
+        request.setAttribute("objects", lista);   
+        request.getRequestDispatcher("cliente.jsp").forward(request, response);  
+     }
+        else
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+         
+     
+     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

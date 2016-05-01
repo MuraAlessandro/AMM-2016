@@ -12,13 +12,13 @@ package milestone.classi;
  */
 public class Utente 
 {
-    private int id;
+    private Integer id;
     private String nome;//per fare il bentornato 
     private String cognome;
     private String username;
     private String password;
-    private int idConto;
-    
+    //private int idConto;
+    Conto conto = new Conto();
 
     /**
      * @return the username
@@ -53,14 +53,14 @@ public class Utente
     /**
      * @return the id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -95,15 +95,29 @@ public class Utente
     /**
      * @return the idConto
      */
-    public int getIdConto() {
+   /* public int getIdConto() {
         return idConto;
     }
 
     /**
      * @param idConto the idConto to set
      */
-    public void setIdConto(int idConto) {
+   /* public void setIdConto(int idConto) {
         this.idConto = idConto;
+    }
+
+    /**
+     * @return the conto
+     */
+    public Conto getConto() {
+        return conto;
+    }
+
+    /**
+     * @param conto the conto to set
+     */
+    public void setConto(Conto conto) {
+        this.conto = conto;
     }
 
     

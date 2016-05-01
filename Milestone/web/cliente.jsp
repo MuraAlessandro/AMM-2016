@@ -38,6 +38,9 @@ and open the template in the editor.
         </div>
         
         <div id="content_page">
+           
+            ${cliente.nome} - ${cliente.cognome} ----- ${logClient}
+            
             <table><!--Creo una tabella che contiene gli oggetti che saranno venduti all'interno del sito-->
                 <tr><th>Nome</th><th>Foto</th><th class="space_table">Quantità</th><th class="space_table">Prezzo</th><th>Link</th></tr>
                 

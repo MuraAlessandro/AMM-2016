@@ -18,7 +18,7 @@ public class ObjectSale {
     private String descrizione;
     private Integer q;//quantità
     private Double price;
-    private int idVenditore;
+    private Integer idVenditore;
     
     /**
      * @return the id
@@ -114,14 +114,14 @@ public class ObjectSale {
     /**
      * @return the idVenditore
      */
-    public int getIdVenditore() {
+    public Integer getIdVenditore() {
         return idVenditore;
     }
 
     /**
      * @param idVenditore the idVenditore to set
      */
-    public void setIdVenditore(int idVenditore) {
+    public void setIdVenditore(Integer idVenditore) {
         this.idVenditore = idVenditore;
     }
 

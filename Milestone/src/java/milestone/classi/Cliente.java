@@ -30,18 +30,22 @@ public class Cliente extends Utente
    /* public void setFoto(String foto) {
         this.foto = foto;
     }*/
-    public void compra(Conto conto, ObjectSale object, ArrayList<ObjectSale> objects){
-        if(object.getPrice()<=conto.getSaldo())
+    public Boolean compra(Cliente cliente, ObjectSale object, ArrayList<ObjectSale> objects){
+        Boolean saldoOk;
+        if(object.getPrice()<=cliente.getConto().getSaldo())
         {
-                conto.saldo=conto.getSaldo()-object.getPrice();
+                saldoOk=true;
+                cliente.getConto().saldo=cliente.getConto().getSaldo()-object.getPrice();
                 for(ObjectSale u : objects){            
-                    if((object.getId()).equals(u.id)&& object.getQ()>=1)
+                    if((object.getId()).equals(u.id)&& object.getQ()>1)
                       object.setQ(object.getQ()-1);
                     else 
-                      if((object.getId()).equals(u.id)&& object.getQ().equals(1))
+                     // if((object.getId()).equals(u.id)&& object.getQ().equals(1))
                                objects.remove(object); 
               }
-        }    
-        
+        }
+        else
+            saldoOk=false;
+        return saldoOk;
     }
 }

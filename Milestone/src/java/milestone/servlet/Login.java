@@ -37,8 +37,16 @@ public class Login extends HttpServlet {
         
         
         HttpSession session = request.getSession(true);
-        session.setAttribute("logClient", null);   
-        session.setAttribute("logSel", null);
+        
+        if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
+              ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
+              request.setAttribute("objects", lista);
+              request.getRequestDispatcher("cliente.jsp").forward(request, response); 
+        }
+        if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Venditore){
+              request.getRequestDispatcher("venditore.jsp").forward(request, response);
+         
+        }
         
         if(request.getParameter("submit") != null)
         {
@@ -53,14 +61,11 @@ public class Login extends HttpServlet {
             {
                 if(u.getUsername().equals(username) &&   u.getPassword().equals(password))//controlla se ce qualche corrispondenza
                 {
-                    session.setAttribute("logClient", true);//se ce setto a true
-                    request.setAttribute("cliente", u);                     
+                    session.setAttribute("utente", u);                     
                     ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
                     request.setAttribute("objects", lista);
                     request.getRequestDispatcher("cliente.jsp").forward(request, response); 
                 }
-                else
-                    session.setAttribute("logClient", false);
             }
             //stessa cosa per i venditori
             ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
@@ -68,26 +73,15 @@ public class Login extends HttpServlet {
             {
                 if(u.getUsername().equals(username) && u.getPassword().equals(password))
                 {
-                    session.setAttribute("logSel", true);
-                    request.setAttribute("venditore", u);
+                    session.setAttribute("utente", u);
                     request.setAttribute("id", u.getId());//mi serve per il caricamento dell'oggetto
                     request.getRequestDispatcher("venditore.jsp").forward(request, response);  
                     
                 }
-                else
-                    session.setAttribute("logSel", false);
             }
-            
-            
-            
-                    
-            //if((Boolean)session.getAttribute("logSel") == false)
-            
-          
-   
-        
+
+            request.setAttribute("error", true);
         }
-       
         request.getRequestDispatcher("login.jsp").forward(request, response);
  
     }

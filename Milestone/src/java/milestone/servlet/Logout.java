@@ -7,27 +7,19 @@ package milestone.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import milestone.classi.Cliente;
-import milestone.classi.ObjectSale;
-import milestone.classi.ObjectSaleFactory;
-import milestone.classi.Utente;
-import milestone.classi.Venditore;
-import milestone.classi.VenditoreFactory;
-
 
 /**
  *
  * @author Ale
  */
-@WebServlet(name = "ClientServlet", urlPatterns = {"/cliente.html"})
-public class ClientServlet extends HttpServlet {
+@WebServlet(name = "Logout", urlPatterns = {"/logout.html"})
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,46 +33,10 @@ public class ClientServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-     
-     HttpSession session = request.getSession(false); 
-     
-     ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
-     if(session == null){
-              request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
-     }
-     if(session.getAttribute("utente")!= null && (Utente)session.getAttribute("utente") instanceof Venditore){
-              request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
-         
-     }
-     if(request.getParameter("obID")!=null)
-        for(ObjectSale u : lista){
-            if(u.getId().equals(Integer.parseInt(request.getParameter("obID")))){
-                request.setAttribute("oggetto", u);
-                request.setAttribute("conferma",true);
-            }
-            request.getRequestDispatcher("cliente.jsp").forward(request, response);
-        }
-     
-     if(request.getParameter("submit") != null) {
-      /*  Boolean saldoOk=compra((Cliente)session.getAttribute("utente"),(ObjectSale)request.getAttribute("oggetto"),lista);
-        if(saldoOk==true){
-           ObjectSale ogg = (ObjectSale) request.getAttribute("oggetto"); 
-           ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
-           for(Venditore u : listaVenditori){
-               if(u.getId().equals(Integer.parseInt(ogg.getIdVenditore())))
-                   vendi(u,ogg);
-           }
-         
-       
-       }*/
-           
-     }
-     
-     
-     
-        request.setAttribute("objects", lista);   
-        request.getRequestDispatcher("cliente.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        session.invalidate();
+        
+        request.getRequestDispatcher("descrizione.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

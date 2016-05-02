@@ -32,15 +32,21 @@ and open the template in the editor.
         </header>
         
         <div id="sidebar" >
+            <c:if test="${sessionScope.utente != null}">
+                 <a href="logout.html">--LOGOUT--</a>
+            </c:if>
             <nav>
                 <a href="descrizione.html" class="invio">Home di descrizione</a> 
                 <a href="login.html" class="invio">Login</a>
             </nav>
         </div>
          <!--Creazione del form per l'inserimento dei dati, che permetterà di inserire un nuovo oggetto-->
-        <div id="content">
-            LogSel - form - nome<br>
-            ${logSel} ${form} - ${nome}-
+        <c:if test="${form==null}">
+            <div id="content_page" class="error">
+                <h2>${er}</h2>
+            </div>
+           </c:if>
+        <div id="content">    
         <c:if test="${form==null}">    
             <form action="venditore.html" method="GET">
                 <!--il tag label è l'etichetta che è correlata ad uno specifico input-->
@@ -65,11 +71,10 @@ and open the template in the editor.
                 <input type="submit" value="invia" id="submit" name="submit">
             </form>
              </c:if> 
-             ${b}--------
-            //////${cd}////${idV}
+
             <c:if test="${form==true}">
                 <div>
-                    <strong>Inserimento riuscito</strong>
+                <strong>Inserimento riuscito</strong>
                 <label>Nome: ${obj.nome}</label>
                 <label><img title=" scarpa " alt="Foto di una scarpa" src="${obj.url}" width="150" height="150"></label>
                 <label>Quantità: ${obj.q}</label>

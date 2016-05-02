@@ -31,19 +31,18 @@ and open the template in the editor.
         </header>
         
         <div id="sidebar">
-        <nav>
-            <a href="descrizione.html" class="invio">Home di descrizione</a>
-            <a href="login.html" class="invio">Login</a>
-        </nav>
+            <c:if test="${sessionScope.utente != null}">
+                 <a href="logout.html">--LOGOUT--</a>
+            </c:if>
+            <nav>
+                <a href="descrizione.html" class="invio">Home di descrizione</a>
+                <a href="login.html" class="invio">Login</a>
+            </nav>
         </div>
         
         <div id="content_page">
-           
-            ${cliente.nome} - ${cliente.cognome} ----- ${logClient}
-            
-            
                 <table><!--Creo una tabella che contiene gli oggetti che saranno venduti all'interno del sito-->
-                    <tr><th>Nome</th><th>Foto</th><th class="space_table">Quantità</th><th class="space_table">Prezzo</th><th>Link</th></tr>
+                    <tr><th>Nome</th><th>Foto</th><th class="space_table">Quantità</th><th class="space_table">Prezzo</th><th class="space_table">Link</th></tr>
 
                     <c:forEach var="objec" items="${objects}">
                     <tr>
@@ -54,18 +53,19 @@ and open the template in the editor.
                         <td><a href="cliente.html?obID=${objec.id}" class="space_table">Aggiungi al carrello</a></td>
                     </tr>
                     </c:forEach>
-                </table>
+                
+                
                 <c:if test="${conferma == true}">
-                <form action="cliente.html?n=66" method="GET">
-                <label>Nome: ${oggetto.nome}</label>
-                <label>Prezzo: ${oggetto.price}</label>
-                <label>Descrizione: ${oggetto.descrizione}</label>
-                <input type="submit" value="invia" id="submit" name="submit">
+                <form action="cliente.html" method="GET">
+                <tr><td>${oggetto.nome}</td>
+                <td><img title=" scarpa " alt="Foto di una scarpa" src="${oggetto.url}" width="100" height="100"></td>
+                <td></td>
+                <td>${oggetto.price}</td>
+                <td><input type="submit" value="invia" id="submit" name="submit"></td>
                 </form>
                 </c:if>
+                </table>
         </div>
-         ---------   
-        ${n}
         <%@include file="footer.jsp" %>
         
     </body>

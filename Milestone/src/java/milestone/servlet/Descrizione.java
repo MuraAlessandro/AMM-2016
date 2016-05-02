@@ -34,15 +34,15 @@ public class Descrizione extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
        /* if(session.getAttribute("loggedIn").equals(true))
             {}*/
        /* if(session != null && new Boolean(true).equals(session.getAttribute(logClient))){
         
             request.getRequestDispatcher("cliente.jsp").forward(request, response);
         }*/
-       if(request.getParameter("ss") != null)
-           session.invalidate();
+       if(request.getParameter("utente") != null)
+          request.setAttribute("log", true);
        
         request.getRequestDispatcher("descrizione.jsp").forward(request, response);
     }

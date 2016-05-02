@@ -40,11 +40,11 @@ and open the template in the editor.
          </div>
         
         
-        <c:if test="${error == true}">
-            <div id="content_page" class="error">
-                <h2>Hai sbagliato Username e/o password</h2>
-            </div>
-         </c:if>       
+        
+        <div id="content_page" class="error">
+            <h2>Accesso negato</h2>
+        </div>
+               
        
             <div id="content">    
                 <!--Creazione del form per l'inserimento dei dati, che poi riutilizzeremo in seguito-->

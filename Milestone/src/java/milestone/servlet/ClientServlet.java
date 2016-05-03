@@ -53,29 +53,29 @@ public class ClientServlet extends HttpServlet {
               request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
          
      }
+     
      if(request.getParameter("obID")!=null)
+     {
         for(ObjectSale u : lista){
             if(u.getId().equals(Integer.parseInt(request.getParameter("obID")))){
                 request.setAttribute("oggetto", u);
-                request.setAttribute("conferma",true);
-            }
-            request.getRequestDispatcher("cliente.jsp").forward(request, response);
+                request.setAttribute("conferma",true);  
+            } 
         }
-     
-     if(request.getParameter("submit") != null) {
-      /*  Boolean saldoOk=compra((Cliente)session.getAttribute("utente"),(ObjectSale)request.getAttribute("oggetto"),lista);
-        if(saldoOk==true){
-           ObjectSale ogg = (ObjectSale) request.getAttribute("oggetto"); 
-           ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
-           for(Venditore u : listaVenditori){
-               if(u.getId().equals(Integer.parseInt(ogg.getIdVenditore())))
-                   vendi(u,ogg);
-           }
-         
-       
-       }*/
-           
+        request.getRequestDispatcher("cliente.jsp").forward(request, response);
      }
+     
+    if(request.getParameter("submit") != null) {
+       Cliente cliente=(Cliente) session.getAttribute("utente");
+       ObjectSale ogg = (ObjectSale) request.getAttribute("oggetto");
+       Boolean saldoOk=cliente.compra(cliente,ogg,lista);
+      /* if(saldoOk==true){
+            
+           Venditore v=(Venditore) session.getAttribute("utente"); 
+                   v.vendi(v,ogg);
+       }*/
+       request.getRequestDispatcher("cliente.jsp").forward(request, response);        
+    }
      
      
      

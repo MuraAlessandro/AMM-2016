@@ -43,9 +43,10 @@ public class ClientServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
      
-     HttpSession session = request.getSession(false); 
+     HttpSession session = request.getSession(false); //controllo se è gia in corso una sessione 
      
-     ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
+     ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();//passo gli oggetti alla servlet
+     //se non e' in corso la sessione o non e' un cliente allora lo manda alla jsp accesso negato
      if(session == null){
               request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
      }
@@ -53,27 +54,43 @@ public class ClientServlet extends HttpServlet {
               request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
          
      }
-     
+     //valore che passo alla servlet con la url encoding di cliente.jsp, se è diverso da null vorrà dire che ha
+     //cliccato su 
      if(request.getParameter("obID")!=null)
      {
         for(ObjectSale u : lista){
             if(u.getId().equals(Integer.parseInt(request.getParameter("obID")))){
                 request.setAttribute("oggetto", u);
+                
+       
                 request.setAttribute("conferma",true);  
             } 
         }
         request.getRequestDispatcher("cliente.jsp").forward(request, response);
      }
      
+     
     if(request.getParameter("submit") != null) {
        Cliente cliente=(Cliente) session.getAttribute("utente");
+       for(ObjectSale u : lista){
+           if(u.getId().equals(Integer.parseInt(request.getParameter("i"))))
+                request.setAttribute("oggetto", u);
+       }
        ObjectSale ogg = (ObjectSale) request.getAttribute("oggetto");
        Boolean saldoOk=cliente.compra(cliente,ogg,lista);
-      /* if(saldoOk==true){
-            
-           Venditore v=(Venditore) session.getAttribute("utente"); 
-                   v.vendi(v,ogg);
-       }*/
+       if(saldoOk==true){ 
+            if( ogg.getQ()>1)
+                 ogg.setQ(ogg.getQ()-1);
+            else 
+                lista.remove(ogg);
+           ArrayList<Venditore> sellers = VenditoreFactory.getInstance().getSellerList();
+           Venditore v;
+           for(Venditore c : sellers)
+                    if(c.getId().equals(ogg.getIdVenditore())){
+                        v=c; 
+                        v.vendi(v,ogg);
+                    }
+       }
        request.getRequestDispatcher("cliente.jsp").forward(request, response);        
     }
      

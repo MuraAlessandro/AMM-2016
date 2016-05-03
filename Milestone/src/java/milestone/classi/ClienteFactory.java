@@ -31,7 +31,7 @@ public class ClienteFactory {
         client1.setCognome("Mura");
        // client1.setFoto("http://immaginibuongiorno.it/wp-content/uploads/2015/08/Immagini-buongiorno-301-e1411874877531-320x296.jpg");
         client1.setId(0);
-        client1.conto.setSaldo(220.05);
+        client1.conto.setSaldo(1220.05);
         listaClienti.add(client1);
         
         

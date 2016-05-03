@@ -17,7 +17,6 @@ public class Utente
     private String cognome;
     private String username;
     private String password;
-    //private int idConto;
     Conto conto = new Conto();
 
     /**
@@ -90,20 +89,6 @@ public class Utente
      */
     public void setCognome(String cognome) {
         this.cognome = cognome;
-    }
-
-    /**
-     * @return the idConto
-     */
-   /* public int getIdConto() {
-        return idConto;
-    }
-
-    /**
-     * @param idConto the idConto to set
-     */
-   /* public void setIdConto(int idConto) {
-        this.idConto = idConto;
     }
 
     /**

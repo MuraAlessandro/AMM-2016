@@ -39,7 +39,6 @@ and open the template in the editor.
             </nav>
          </div>
         
-        
         <c:if test="${error == true}">
             <div id="content_page" class="error">
                 <h2>Hai sbagliato Username e/o password</h2>

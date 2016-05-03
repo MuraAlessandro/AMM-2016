@@ -80,7 +80,13 @@ public class ClientServlet extends HttpServlet {
      
      
         request.setAttribute("objects", lista);   
-        request.getRequestDispatcher("cliente.jsp").forward(request, response);
+        if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
+             
+              request.setAttribute("objects", lista);
+              request.getRequestDispatcher("cliente.jsp").forward(request, response); 
+        }
+        else
+         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

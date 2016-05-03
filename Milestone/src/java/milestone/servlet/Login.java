@@ -35,9 +35,8 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        
         HttpSession session = request.getSession(true);
-        
+       
         if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
               ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
               request.setAttribute("objects", lista);
@@ -59,7 +58,7 @@ public class Login extends HttpServlet {
             ArrayList<Cliente> listaClienti = ClienteFactory.getInstance().getClientList();//restituisce la lista
             for(Cliente u : listaClienti)
             {
-                if(u.getUsername().equals(username) &&   u.getPassword().equals(password))//controlla se ce qualche corrispondenza
+                if(u.getUsername().equals(username) &&  u.getPassword().equals(password))//controlla se ce qualche corrispondenza
                 {
                     session.setAttribute("utente", u);                     
                     ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();

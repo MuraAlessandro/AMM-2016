@@ -60,10 +60,10 @@ and open the template in the editor.
                 <textarea rows="10" cols="20" id="descrizione" name="descrizione" ></textarea>
                 
                 <label for="q">Quantità disponibile dell'oggetto:</label>
-                <input type="number" id="q" name="q" min="1" value="1"><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
+                <input type="number" id="q" name="q" min="1" ><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
                 
                 <label for="price">Prezzo dell'oggetto:</label>
-                <input type="number" id="price" name="price" step="0.01" min="0" value="0.01">
+                <input type="number" id="price" name="price" step="0.01" min="0" >
                 <!--Uso il tag min perchè non è possibile che il prezzo sia un numero negativo, il minimo può essere 0, ovvero gratis-->
                 <!--Uso il tag step poichè il prezzo può essere un numero non intero, quindi è necessario utilizzare anche numeri decimali-->
                 

@@ -67,15 +67,8 @@ public class VenditoreServlet extends HttpServlet {
                     obj.setNome(request.getParameter("nome"));
                     obj.setDescrizione(request.getParameter("descrizione"));
                     obj.setUrl(request.getParameter("url"));
-                    // Setto l'id al venditore corrispondente 
-                    ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
-                    for(Venditore u : listaVenditori){
-                        //request.setAttribute("cd",u.getId());
-                        //request.setAttribute("idV",request.getParameter("idV"));
-                      
-                        if(u.getId().equals(Integer.parseInt(request.getParameter("idV"))))//controlla se ce qualche corrispondenza
-                                obj.setIdVenditore(Integer.parseInt(request.getParameter("idV")));
-                    }
+                    Venditore v=(Venditore) session.getAttribute("utente");
+                    obj.setIdVenditore(v.getId());
                    //correzzione errori di inserimento
                    if(obj.getNome()== "" || obj.getUrl()== "" || obj.getDescrizione()== ""){
                         
@@ -95,6 +88,9 @@ public class VenditoreServlet extends HttpServlet {
                         request.getRequestDispatcher("venditore.jsp").forward(request, response);
                     }
                     
+                    
+                    
+                    
                     request.setAttribute("obj", obj);
                     objects.add(obj);
 
@@ -102,7 +98,10 @@ public class VenditoreServlet extends HttpServlet {
                    
                     
                     }
-            request.getRequestDispatcher("venditore.jsp").forward(request, response);
+            if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Venditore)
+                request.getRequestDispatcher("venditore.jsp").forward(request, response);
+            else
+                request.getRequestDispatcher("login.jsp").forward(request, response);
         
           
         

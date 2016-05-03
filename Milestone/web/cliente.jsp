@@ -31,7 +31,7 @@ and open the template in the editor.
         </header>
         
         <div id="sidebar">
-            <c:if test="${sessionScope.utente != null}">
+            <c:if test="${sessionScope.utente != null}"><!-- accedo alla variabile di sessione -->
                  <a href="logout.html">--LOGOUT--</a>
             </c:if>
             <nav>
@@ -42,8 +42,9 @@ and open the template in the editor.
         
         <div id="content_page">
                 <table><!--Creo una tabella che contiene gli oggetti che saranno venduti all'interno del sito-->
-                    <tr><th>Nome</th><th>Foto</th><th class="space_table">Quantità</th><th class="space_table">Prezzo</th><th class="space_table">Link</th></tr>
-
+                    <c:if test="${ok == null}">
+                            <tr><th>Nome</th><th>Foto</th><th class="space_table">Quantità</th><th class="space_table">Prezzo</th><th class="space_table">Link</th></tr>
+                    </c:if>
                     <c:forEach var="objec" items="${objects}">
                     <tr>
                         <td>${objec.nome}</td>
@@ -54,20 +55,26 @@ and open the template in the editor.
                     </tr>
                     </c:forEach>
                 
-              
+              <!--stampo il riepilogo-->
                 <c:if test="${conferma == true}">
-                    
-                <form action="cliente.html" method="GET">
-                <tr><td>${oggetto.nome}</td>
-                <td><img title=" scarpa " alt="Foto di una scarpa" src="${oggetto.url}" width="100" height="100"></td>
-                <td></td>
-                <td>${oggetto.price}</td>
-                <input type="hidden" name="i" value="${oggetto.id}">
-                <td><input type="submit" value="invia" id="submit" name="submit"></td>
-                
-                </form>
+                    <h2>Vuoi conferma l'acuqisto del seguente oggetto?</h2>    
+                    <form action="cliente.html" method="GET">
+                    <tr><td>${oggetto.nome}</td>
+                    <td><img title=" scarpa " alt="Foto di una scarpa" src="${oggetto.url}" width="100" height="100"></td>
+                    <td></td>
+                    <td>${oggetto.price}</td>
+                    <input type="hidden" name="i" value="${oggetto.id}">
+                    <td><input type="submit" value="OK" id="submit" name="submit"></td>
+                    </form>
                 </c:if>
                 </table>
+                
+            <c:if test="${ok == false}">
+                <h2>Non hai abbastanza soldi</h2>
+            </c:if>
+            <c:if test="${ok == true}">
+                <h2>L'oggetto è stato acquistato con successo</h2>
+            </c:if>
         </div>
         <%@include file="footer.jsp" %>
         

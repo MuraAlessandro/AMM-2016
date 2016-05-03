@@ -44,7 +44,7 @@ public class ClientServlet extends HttpServlet {
 
      
      HttpSession session = request.getSession(false); //controllo se è gia in corso una sessione 
-     
+     request.setAttribute("ok", null);//setto questa variabile per stampare o meno l'intestazione della tabella
      ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();//passo gli oggetti alla servlet
      //se non e' in corso la sessione o non e' un cliente allora lo manda alla jsp accesso negato
      if(session == null){
@@ -55,36 +55,40 @@ public class ClientServlet extends HttpServlet {
          
      }
      //valore che passo alla servlet con la url encoding di cliente.jsp, se è diverso da null vorrà dire che ha
-     //cliccato su 
+     //cliccato su aggiungi al carrello
      if(request.getParameter("obID")!=null)
      {
         for(ObjectSale u : lista){
             if(u.getId().equals(Integer.parseInt(request.getParameter("obID")))){
                 request.setAttribute("oggetto", u);
-                
-       
-                request.setAttribute("conferma",true);  
+                request.setAttribute("conferma",true);  //per stampare il riepilogo
             } 
         }
         request.getRequestDispatcher("cliente.jsp").forward(request, response);
      }
      
-     
+     //indica che ha premuto sulla conferma dell'acquisto 
     if(request.getParameter("submit") != null) {
+       request.setAttribute("ok", false);//per stampare che non ha abbastanza soldi
        Cliente cliente=(Cliente) session.getAttribute("utente");
+       
+       //ricerco l'oggetto con id che ho passato con input hidden
        for(ObjectSale u : lista){
            if(u.getId().equals(Integer.parseInt(request.getParameter("i"))))
                 request.setAttribute("oggetto", u);
        }
        ObjectSale ogg = (ObjectSale) request.getAttribute("oggetto");
+       //metodo saldoOk 
        Boolean saldoOk=cliente.compra(cliente,ogg,lista);
-       if(saldoOk==true){ 
-            if( ogg.getQ()>1)
+       if(saldoOk==true){ //se è true il cliente ha abbastanza soldi per comprare l'oggetto
+            request.setAttribute("ok", true);//per stampare la conferma dell'acquisto
+            if( ogg.getQ()>1)//riduco la quantità
                  ogg.setQ(ogg.getQ()-1);
             else 
-                lista.remove(ogg);
+                lista.remove(ogg);//elimino l'oggetto
            ArrayList<Venditore> sellers = VenditoreFactory.getInstance().getSellerList();
            Venditore v;
+           //aumento il saldo del venditore
            for(Venditore c : sellers)
                     if(c.getId().equals(ogg.getIdVenditore())){
                         v=c; 
@@ -97,6 +101,7 @@ public class ClientServlet extends HttpServlet {
      
      
         request.setAttribute("objects", lista);   
+        //se la sessione è in atto e l'utente è un cliente va in cliente.jsp
         if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
              
               request.setAttribute("objects", lista);

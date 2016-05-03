@@ -35,14 +35,9 @@ public class Descrizione extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession(false);
-       /* if(session.getAttribute("loggedIn").equals(true))
-            {}*/
-       /* if(session != null && new Boolean(true).equals(session.getAttribute(logClient))){
-        
-            request.getRequestDispatcher("cliente.jsp").forward(request, response);
-        }*/
-       if(request.getParameter("utente") != null)
-          request.setAttribute("log", true);
+
+        if(request.getParameter("utente") != null)
+             request.setAttribute("log", true);
        
         request.getRequestDispatcher("descrizione.jsp").forward(request, response);
     }

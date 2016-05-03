@@ -32,7 +32,7 @@ and open the template in the editor.
         </header>
         
         <div id="sidebar" >
-            <c:if test="${sessionScope.utente != null}">
+            <c:if test="${sessionScope.utente != null}"><!-- accedo alla variabile di sessione -->
                  <a href="logout.html">--LOGOUT--</a>
             </c:if>
             <nav>
@@ -71,7 +71,7 @@ and open the template in the editor.
                 <input type="submit" value="invia" id="submit" name="submit">
             </form>
              </c:if> 
-
+            <!--conferma dell'inserimento dell'oggetto-->
             <c:if test="${form==true}">
                 <div>
                 <strong>Inserimento riuscito</strong>

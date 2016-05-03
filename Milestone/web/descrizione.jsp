@@ -33,7 +33,7 @@ and open the template in the editor.
         <h1>Ecommerce Scarpe</h1>
     </header>
     <div  id="sidebar">
-        <c:if test="${sessionScope.utente != null}">
+        <c:if test="${sessionScope.utente != null}"><!-- accedo alla variabile di sessione -->
                  <a href="logout.html" >--LOGOUT--</a>
         </c:if>
         

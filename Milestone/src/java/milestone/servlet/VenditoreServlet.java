@@ -41,10 +41,8 @@ public class VenditoreServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession(false);
-      //  request.setAttribute("form", false);
-        
-      
+        HttpSession session = request.getSession(false);//controllo se è gia in corso una sessione 
+        //se non e' in corso la sessione o non e' un venditore allora lo manda alla jsp accesso negato
         if(session == null){
                     request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
            }
@@ -56,14 +54,16 @@ public class VenditoreServlet extends HttpServlet {
        
            
             if(request.getParameter("submit") != null){
+                
                     //per calcolare un id differente per tutti gli oggetti
                     Integer num = null;
                     for(ObjectSale u : objects){
                         num=u.getId();
                     }
-                    
                     ObjectSale obj = new ObjectSale();
                     obj.setId(num+1);
+                    
+                    //salvo i valori del nuovo oggetto
                     obj.setNome(request.getParameter("nome"));
                     obj.setDescrizione(request.getParameter("descrizione"));
                     obj.setUrl(request.getParameter("url"));
@@ -88,16 +88,13 @@ public class VenditoreServlet extends HttpServlet {
                         request.getRequestDispatcher("venditore.jsp").forward(request, response);
                     }
                     
-                    
-                    
-                    
                     request.setAttribute("obj", obj);
                     objects.add(obj);
-
                     request.setAttribute("form", true);
                    
                     
                     }
+            //se la sessione è in atto e l'utente è un venditore va in venditore.jsp
             if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Venditore)
                 request.getRequestDispatcher("venditore.jsp").forward(request, response);
             else

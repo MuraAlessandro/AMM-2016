@@ -35,9 +35,10 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession(true);
-       
+        HttpSession session = request.getSession(true);//effettuo la sessione
+        // utilizzo instanceof per determinare che l'utente sia un venditore o cliente e li mando alla corrispettive pagine.jsp
         if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
+              //passo la lista degli oggetti in vendita 
               ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
               request.setAttribute("objects", lista);
               request.getRequestDispatcher("cliente.jsp").forward(request, response); 

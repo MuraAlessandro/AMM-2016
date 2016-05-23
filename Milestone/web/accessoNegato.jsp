@@ -3,7 +3,7 @@
     Created on : 19-apr-2016, 23.04.21
     Author     : Ale
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><!--usato per utilizzare i costrutti if foreach..-->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -12,6 +12,8 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
+    <!-- il TAGLIB è usato per utilizzare i costrutti if foreach..-->
+    
     <head><!-- contiene informazioni generali sulla pagina -->
         <title>Login</title>
         <!--<base href="M3/">-->

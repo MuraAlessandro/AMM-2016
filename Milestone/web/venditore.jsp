@@ -3,7 +3,7 @@
     Created on : 19-apr-2016, 23.05.08
     Author     : Ale
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><!--usato per utilizzare i costrutti if foreach..-->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -12,6 +12,8 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
+    <!-- il TAGLIB è usato per utilizzare i costrutti if foreach..-->
+    
     <head>
         <title>Venditore</title>
        <!-- <base href="M3/">-->
@@ -47,30 +49,53 @@ and open the template in the editor.
             </div>
            </c:if>
         <div id="content">    
-        <c:if test="${form==null}">    
-            <form action="venditore.html" method="GET">
-                <!--il tag label è l'etichetta che è correlata ad uno specifico input-->
-                <label for="nome">Nome oggetto:</label>
-                <input type="text" id="nome" name="nome">
+            <c:if test="${form==null}">   
+                <ol>   
+                    <li>Aggiungi oggetto   
+                        <form action="venditore.html" method="GET">
+                            <!--il tag label è l'etichetta che è correlata ad uno specifico input-->
+                            <label for="nome">Nome oggetto:</label>
+                            <input type="text" id="nome" name="nome">
 
-                <label for="url">Immagine dell'oggetto:</label> 
-                <input type="url" id="url" name="url" >
-                 
-                <label for="descrizione">Descrizione:</label>
-                <textarea rows="10" cols="20" id="descrizione" name="descrizione" ></textarea>
-                
-                <label for="q">Quantità disponibile dell'oggetto:</label>
-                <input type="number" id="q" name="q" min="1" ><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
-                
-                <label for="price">Prezzo dell'oggetto:</label>
-                <input type="number" id="price" name="price" step="0.01" min="0" >
-                <!--Uso il tag min perchè non è possibile che il prezzo sia un numero negativo, il minimo può essere 0, ovvero gratis-->
-                <!--Uso il tag step poichè il prezzo può essere un numero non intero, quindi è necessario utilizzare anche numeri decimali-->
-                
-                <input type="hidden" name="idV" value="${id}">
-                <input type="submit" value="invia" id="submit" name="submit">
-            </form>
-             </c:if> 
+                            <label for="url">Immagine dell'oggetto:</label> 
+                            <input type="url" id="url" name="url" >
+
+                            <label for="descrizione">Descrizione:</label>
+                            <textarea rows="10" cols="20" id="descrizione" name="descrizione" ></textarea>
+
+                            <label for="q">Quantità disponibile dell'oggetto:</label>
+                            <input type="number" id="q" name="q" min="1" ><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
+
+                            <label for="price">Prezzo dell'oggetto:</label>
+                            <input type="number" id="price" name="price" step="0.01" min="0" >
+                            <!--Uso il tag min perchè non è possibile che il prezzo sia un numero negativo, il minimo può essere 0, ovvero gratis-->
+                            <!--Uso il tag step poichè il prezzo può essere un numero non intero, quindi è necessario utilizzare anche numeri decimali-->
+
+                            <input type="hidden" name="idV" value="${id}">
+                            <input type="submit" value="invia" id="submit" name="submit">
+                        </form>
+                    </li>  
+                    <li> Modifica oggetto</li> 
+                    
+                    
+                    
+                    
+                    
+                    <li> Elimina oggetto
+                       
+                        <form action="venditore.html" method="GET">
+                            <select name="ogget">
+                                <c:forEach var="objec" items="${ob}">
+                                    <option value="k">lò</option>
+                                </c:forEach>
+                            </select>
+                            <input type="submit" value="invia" id="send" name="send">
+                        </form>
+
+                    </li>    
+                </ol>       
+
+            </c:if> 
             <!--conferma dell'inserimento dell'oggetto-->
             <c:if test="${form==true}">
                 <div>

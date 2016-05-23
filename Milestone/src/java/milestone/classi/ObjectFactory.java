@@ -1,6 +1,15 @@
 package milestone.classi;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import sun.util.logging.PlatformLogger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,14 +21,14 @@ import java.util.ArrayList;
  *
  * @author Ale
  */
-public class ObjectSaleFactory {
+public class ObjectFactory {
     
     
  // Attributi
-    private static ObjectSaleFactory singleton;
-    public static ObjectSaleFactory getInstance() {
+    private static ObjectFactory singleton;
+    public static ObjectFactory getInstance() {
         if (singleton == null) {
-            singleton = new ObjectSaleFactory();
+            singleton = new ObjectFactory();
         }
         return singleton;
         
@@ -27,9 +36,10 @@ public class ObjectSaleFactory {
     }    
     
     private ArrayList<ObjectSale> objects = new ArrayList<ObjectSale>();   
+    private String connectionString;
+    /*
     
-    
-    public ObjectSaleFactory (){
+    public ObjectFactory (){
         ObjectSale obj1 = new ObjectSale();
         obj1.setId(0);
         obj1.setNome("Scarpa tacco Bm2004");
@@ -150,7 +160,7 @@ public class ObjectSaleFactory {
         obj8.setUrl("IMG/bimbo.png");
         obj8.setIdVenditore(1);
         objects.add(obj8);
-    }
+    }*/
     
     public ObjectSale getObjectSaleById(int id){
         for(ObjectSale u : objects)
@@ -166,7 +176,127 @@ public class ObjectSaleFactory {
         return objects;
     }
     
-    
+    public void setConnectionString(String s){
+	this.connectionString = s;
+    }
+    public String getConnectionString(){
+            return this.connectionString;
+    } 
 
     
+    
+    public ArrayList<ObjectSale> getOggetti()
+    {
+        ArrayList<ObjectSale> result = new ArrayList<ObjectSale>();
+        try
+        {
+            // path, username, password
+            Connection conn = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+            Statement stmt = conn.createStatement();
+            String query = "select * from oggetto";
+            // Esecuzione query
+            ResultSet set = stmt.executeQuery(query);
+           
+            while(set.next())
+            {
+                ObjectSale current = new ObjectSale();
+                current.setId(set.getInt("id"));
+                current.setNome(set.getString("nome"));
+                current.setUrl(set.getString("url"));
+                current.setDescrizione(set.getString("descrizione"));
+                current.setQ(set.getInt("q"));
+                current.setPrice(set.getDouble("price"));
+                current.setIdVenditore(set.getInt("idVenditore"));
+                result.add(current);
+ 
+    
+            }
+            
+            stmt.close();
+            conn.close();
+            return result;
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    
+    
+    public ObjectSale getOggetto(Integer id)
+    {
+        ObjectSale current = new ObjectSale();
+        try
+        {
+            // path, username, password
+            Connection conn = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+            Statement stmt = conn.createStatement();
+            String query = "select * from oggetto where id="+id;
+            // Esecuzione query
+            ResultSet set = stmt.executeQuery(query);
+            
+            while(set.next())
+            {
+                
+                current.setId(set.getInt("id"));
+                current.setNome(set.getString("nome"));
+                current.setUrl(set.getString("url"));
+                current.setDescrizione(set.getString("descrizione"));
+                current.setQ(set.getInt("q"));
+                current.setPrice(set.getDouble("price"));
+                current.setIdVenditore(set.getInt("idVenditore"));
+    
+            }
+            
+            stmt.close();
+            conn.close();
+            return current;
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return null;
+    
+    }
+    
+    
+    public ObjectSale nuovoOggetto(ObjectSale ob)
+    {
+        try
+        {
+            Connection con = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+            
+            String sql = "insert into oggetto (id, nome, descrizione, url, price, q, idVenditore) values (default, ? , ? , ? , ? , ? , ? )";
+            // Esecuzione query
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, ob.getNome());
+            stmt.setString(2, ob.getDescrizione());
+            stmt.setString(3, ob.getUrl());
+            stmt.setDouble(4, ob.getPrice());
+            stmt.setInt(5, ob.getQ());
+            stmt.setInt(6, ob.getIdVenditore());
+            //togliendo il prepareStatement
+            
+            
+            int row = stmt.executeUpdate();
+            
+
+            stmt.close();
+            con.close();
+            
+            return ob;
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        
+           
+        return null; 
+    
+    }
 }

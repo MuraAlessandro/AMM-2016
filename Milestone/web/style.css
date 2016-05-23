@@ -62,6 +62,7 @@ img[title="logo_sito"]
     margin-left:42%; 
 }
 
+
 img[title="scarpa"] 
 {
     margin-left:33%;
@@ -75,7 +76,7 @@ input:focus, textarea:focus
     color:white; 
 }
 
-label::after, label::before, .invio::after 
+label::after, label::before, .invio::after
 { 
     content:'\A'; white-space:pre;/*per andare a capo*/
 } 

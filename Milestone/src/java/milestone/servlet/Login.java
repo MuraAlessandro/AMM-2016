@@ -8,6 +8,8 @@ import milestone.classi.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +21,27 @@ import javax.servlet.http.HttpSession;
  *
  * @author Alessandro
  */
-@WebServlet(name = "Login", urlPatterns = {"/login.html"})
+@WebServlet(name = "Login", urlPatterns = {"/login.html"}, loadOnStartup = 0 )
 public class Login extends HttpServlet {
 
+    private static final String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    private static final String DB_CLEAN_PATH = "../../web/WEB-INF/db/ammdb";
+    private static final String DB_BUILD_PATH = "WEB-INF/db/ammdb";
+    
+    @Override 
+    public void init(){
+        String dbConnection = "jdbc:derby:" + this.getServletContext().getRealPath("/") + DB_BUILD_PATH;
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ClienteFactory.getInstance().setConnectionString(dbConnection);
+        VenditoreFactory.getInstance().setConnectionString(dbConnection);
+        ObjectFactory.getInstance().setConnectionString(dbConnection);
+        ContoFactory.getInstance().setConnectionString(dbConnection);
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,7 +59,7 @@ public class Login extends HttpServlet {
         // utilizzo instanceof per determinare che l'utente sia un venditore o cliente e li mando alla corrispettive pagine.jsp
         if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
               //passo la lista degli oggetti in vendita 
-              ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
+              ArrayList<ObjectSale> lista = ObjectFactory.getInstance().getSellingObjectList();
               request.setAttribute("objects", lista);
               request.getRequestDispatcher("cliente.jsp").forward(request, response); 
         }
@@ -48,37 +68,38 @@ public class Login extends HttpServlet {
          
         }
         
+       
+        
+        
+        
+        
+        
         if(request.getParameter("submit") != null)
         {
            
             // Preleva i dati inviati
             String username = request.getParameter("user");
             String password = request.getParameter("psw");
-            
-            //Importo la lista  
-            ArrayList<Cliente> listaClienti = ClienteFactory.getInstance().getClientList();//restituisce la lista
-            for(Cliente u : listaClienti)
-            {
-                if(u.getUsername().equals(username) &&  u.getPassword().equals(password))//controlla se ce qualche corrispondenza
+            //si passano ad un metodo
+            Cliente c = ClienteFactory.getInstance().getCliente(username, password);
+                
+                if(c != null)//controlla se ce qualche corrispondenza
                 {
-                    session.setAttribute("utente", u);                     
-                    ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();
+                    session.setAttribute("utente", c);                     
+                    ArrayList<ObjectSale> lista = ObjectFactory.getInstance().getOggetti();
                     request.setAttribute("objects", lista);
                     request.getRequestDispatcher("cliente.jsp").forward(request, response); 
                 }
-            }
-            //stessa cosa per i venditori
-            ArrayList<Venditore> listaVenditori = VenditoreFactory.getInstance().getSellerList();
-            for(Venditore u : listaVenditori)
-            {
-                if(u.getUsername().equals(username) && u.getPassword().equals(password))
+            
+            Venditore v = VenditoreFactory.getInstance().getVenditore(username, password);
+                if(v != null)
                 {
-                    session.setAttribute("utente", u);
-                    request.setAttribute("id", u.getId());//mi serve per il caricamento dell'oggetto
+                    session.setAttribute("utente", v);
+                    request.setAttribute("id", v.getId());//mi serve per il caricamento dell'oggetto
                     request.getRequestDispatcher("venditore.jsp").forward(request, response);  
                     
                 }
-            }
+            
 
             request.setAttribute("error", true);
         }

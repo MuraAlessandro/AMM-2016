@@ -19,9 +19,17 @@ public class ContoFactory {
         }
         return singleton;
     }  
+    private String connectionString;
     
     public ContoFactory(){
-         
 
     }
+    
+        public void setConnectionString(String s){
+	this.connectionString = s;
+    }
+    
+    public String getConnectionString(){
+	return this.connectionString;
+    } 
 }

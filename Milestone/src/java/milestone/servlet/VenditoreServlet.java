@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import milestone.classi.Cliente;
 import milestone.classi.ObjectSale;
-import milestone.classi.ObjectSaleFactory;
+import milestone.classi.ObjectFactory;
 import milestone.classi.Utente;
 import milestone.classi.Venditore;
 import milestone.classi.VenditoreFactory;
@@ -50,19 +50,20 @@ public class VenditoreServlet extends HttpServlet {
                     request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
 
            }
-        ArrayList<ObjectSale> objects = ObjectSaleFactory.getInstance().getSellingObjectList();
+        ArrayList<ObjectSale> objects = ObjectFactory.getInstance().getOggetti();
        
            
             if(request.getParameter("submit") != null){
                 
                     //per calcolare un id differente per tutti gli oggetti
-                    Integer num = null;
+                   
+                    /* Integer num = null;
                     for(ObjectSale u : objects){
                         num=u.getId();
                     }
-                    ObjectSale obj = new ObjectSale();
-                    obj.setId(num+1);
                     
+                    obj.setId(num+1);*/
+                    ObjectSale obj = new ObjectSale();
                     //salvo i valori del nuovo oggetto
                     obj.setNome(request.getParameter("nome"));
                     obj.setDescrizione(request.getParameter("descrizione"));
@@ -78,8 +79,8 @@ public class VenditoreServlet extends HttpServlet {
                         request.getRequestDispatcher("venditore.jsp").forward(request, response);
                     }
                     try{
-                    obj.setPrice(Double.parseDouble(request.getParameter("price")));
-                    obj.setQ(Integer.parseInt(request.getParameter("q")));
+                        obj.setPrice(Double.parseDouble(request.getParameter("price")));
+                        obj.setQ(Integer.parseInt(request.getParameter("q")));
                     }
                     catch(RuntimeException exception){
                         String error="Devi compilare tutti i campi per poter inserire il nuovo prodotto";
@@ -87,13 +88,18 @@ public class VenditoreServlet extends HttpServlet {
                         request.setAttribute("form", null);
                         request.getRequestDispatcher("venditore.jsp").forward(request, response);
                     }
-                    
-                    request.setAttribute("obj", obj);
-                    objects.add(obj);
-                    request.setAttribute("form", true);
+                    ObjectSale o=ObjectFactory.getInstance().nuovoOggetto(obj);
                    
                     
-                    }
+                      request.setAttribute("obj", o);
+                      request.setAttribute("form", true);
+                    
+                  
+                   
+             
+        
+            }
+       
             //se la sessione è in atto e l'utente è un venditore va in venditore.jsp
             if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Venditore)
                 request.getRequestDispatcher("venditore.jsp").forward(request, response);

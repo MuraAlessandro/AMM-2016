@@ -3,7 +3,7 @@
     Created on : 19-apr-2016, 23.03.50
     Author     : Ale
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><!--usato per utilizzare i costrutti if foreach..-->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -12,6 +12,8 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
+    <!-- il TAGLIB è usato per utilizzare i costrutti if foreach..-->
+    
     <head>
         <title>Cliente</title>
        <!-- <base href="M3/">-->
@@ -55,13 +57,13 @@ and open the template in the editor.
                     </tr>
                     </c:forEach>
                 
-              <!--stampo il riepilogo-->
+                <!--stampo il riepilogo-->
                 <c:if test="${conferma == true}">
-                    <h2>Vuoi conferma l'acuqisto del seguente oggetto?</h2>    
+                    <!--<h2>Vuoi confermare l'acquisto del seguente oggetto?</h2>--> 
                     <form action="cliente.html" method="GET">
                     <tr><td>${oggetto.nome}</td>
                     <td><img title=" scarpa " alt="Foto di una scarpa" src="${oggetto.url}" width="100" height="100"></td>
-                    <td></td>
+                    <td>1</td>
                     <td>${oggetto.price}</td>
                     <input type="hidden" name="i" value="${oggetto.id}">
                     <td><input type="submit" value="OK" id="submit" name="submit"></td>

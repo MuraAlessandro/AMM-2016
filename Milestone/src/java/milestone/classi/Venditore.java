@@ -15,23 +15,23 @@ import milestone.classi.Utente;
  */
 public class Venditore extends Utente {
     
-    private String impresa;//nome dell'impresa che vende il prodotto
+ //   private String impresa;//nome dell'impresa che vende il prodotto
 
 
     /**
      * @return the impresa
      */
-    public String getImpresa() {
+  /*  public String getImpresa() {
         return impresa;
     }
 
     /**
      * @param impresa the impresa to set
      */
-    public void setImpresa(String impresa) {
+   /* public void setImpresa(String impresa) {
         this.impresa = impresa;
     }
-    
+    */
     public void vendi(Venditore venditore, ObjectSale object){
               venditore.getConto().saldo=venditore.conto.getSaldo()+object.getPrice();
     }

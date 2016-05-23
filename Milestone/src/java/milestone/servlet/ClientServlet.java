@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import milestone.classi.Cliente;
 import milestone.classi.ObjectSale;
-import milestone.classi.ObjectSaleFactory;
+import milestone.classi.ObjectFactory;
 import milestone.classi.Utente;
 import milestone.classi.Venditore;
 import milestone.classi.VenditoreFactory;
@@ -45,7 +45,7 @@ public class ClientServlet extends HttpServlet {
      
      HttpSession session = request.getSession(false); //controllo se è gia in corso una sessione 
      request.setAttribute("ok", null);//setto questa variabile per stampare o meno l'intestazione della tabella
-     ArrayList<ObjectSale> lista = ObjectSaleFactory.getInstance().getSellingObjectList();//passo gli oggetti alla servlet
+     ArrayList<ObjectSale> lista = ObjectFactory.getInstance().getOggetti();//passo gli oggetti alla servlet
      //se non e' in corso la sessione o non e' un cliente allora lo manda alla jsp accesso negato
      if(session == null){
               request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
@@ -58,12 +58,12 @@ public class ClientServlet extends HttpServlet {
      //cliccato su aggiungi al carrello
      if(request.getParameter("obID")!=null)
      {
-        for(ObjectSale u : lista){
-            if(u.getId().equals(Integer.parseInt(request.getParameter("obID")))){
+        ObjectSale u= ObjectFactory.getInstance().getOggetto(Integer.parseInt(request.getParameter("obID")));
+            if(u !=null){
                 request.setAttribute("oggetto", u);
                 request.setAttribute("conferma",true);  //per stampare il riepilogo
             } 
-        }
+        
         request.getRequestDispatcher("cliente.jsp").forward(request, response);
      }
      

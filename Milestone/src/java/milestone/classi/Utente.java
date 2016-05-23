@@ -12,11 +12,11 @@ package milestone.classi;
  */
 public class Utente 
 {
-    private Integer id;
-    private String nome;//per fare il bentornato 
-    private String cognome;
-    private String username;
-    private String password;
+    Integer id;
+    String nome;//per fare il bentornato 
+    String cognome;
+    String username;
+    String password;
     Conto conto = new Conto();
 
     /**

@@ -7,7 +7,10 @@ package milestone.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import milestone.classi.Cliente;
+import milestone.classi.ClienteFactory;
 import milestone.classi.ObjectSale;
 import milestone.classi.ObjectFactory;
 import milestone.classi.Utente;
@@ -72,8 +76,19 @@ public class ClientServlet extends HttpServlet {
        request.setAttribute("ok", false);//per stampare che non ha abbastanza soldi
        Cliente cliente=(Cliente) session.getAttribute("utente");
        
-       //ricerco l'oggetto con id che ho passato con input hidden
-       for(ObjectSale u : lista){
+      ObjectSale u= ObjectFactory.getInstance().getOggetto(Integer.parseInt(request.getParameter("i")));
+      //restituire il venditore
+     
+      Venditore v=VenditoreFactory.getInstance().getVenditoreById(u.getIdVenditore());
+            try {
+                ClienteFactory.getInstance().compra(u, cliente, v);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+    //ricerco l'oggetto con id che ho passato con input hidden
+      /*for(ObjectSale u : lista){
            if(u.getId().equals(Integer.parseInt(request.getParameter("i"))))
                 request.setAttribute("oggetto", u);
        }
@@ -94,7 +109,7 @@ public class ClientServlet extends HttpServlet {
                         v=c; 
                         v.vendi(v,ogg);
                     }
-       }
+       }*/
        request.getRequestDispatcher("cliente.jsp").forward(request, response);        
     }
      

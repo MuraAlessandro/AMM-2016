@@ -7,6 +7,7 @@ package milestone.servlet;
 import milestone.classi.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,12 +69,15 @@ public class Login extends HttpServlet {
          
         }
         
-       
-        
-        
-        
-        
-        
+       /* Cliente a=ClienteFactory.getInstance().getClienteById(1);
+        ObjectSale u =ObjectFactory.getInstance().getObjectSaleById(2);
+        Venditore p=VenditoreFactory.getInstance().getVenditoreById(1);
+        try {      
+            ClienteFactory.getInstance().compra(u, a, p);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        */
         if(request.getParameter("submit") != null)
         {
            
@@ -94,6 +98,7 @@ public class Login extends HttpServlet {
             Venditore v = VenditoreFactory.getInstance().getVenditore(username, password);
                 if(v != null)
                 {
+                  //  int a=v.getId();
                     session.setAttribute("utente", v);
                     request.setAttribute("id", v.getId());//mi serve per il caricamento dell'oggetto
                     request.getRequestDispatcher("venditore.jsp").forward(request, response);  

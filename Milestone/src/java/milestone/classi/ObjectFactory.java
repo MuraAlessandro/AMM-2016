@@ -299,4 +299,81 @@ public class ObjectFactory {
         return null; 
     
     }
+    
+    
+      
+    public ArrayList<ObjectSale> getOggettoByVend(Integer id)
+    {
+        ArrayList<ObjectSale> oggetto = new ArrayList<ObjectSale>();
+        try
+        {
+            // path, username, password
+            Connection conn = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+            Statement stmt = conn.createStatement();
+            String query = "SELECT oggetto.id, oggetto.nome, oggetto.descrizione, oggetto.url, oggetto.price, oggetto.q " +
+                                "FROM oggetto " +
+                                "JOIN venditore ON oggetto.IdVenditore=venditore.id " +
+                                "WHERE venditore.id="+id;
+            // Esecuzione query
+            ResultSet set = stmt.executeQuery(query);
+            
+            while(set.next())
+            {
+                ObjectSale current = new ObjectSale();
+                current.setId(set.getInt("id"));
+                current.setNome(set.getString("nome"));
+                current.setDescrizione(set.getString("descrizione"));
+                current.setUrl(set.getString("url"));
+                current.setQ(set.getInt("q"));
+                current.setPrice(set.getDouble("price"));
+                oggetto.add(current);
+    
+            }
+            
+            stmt.close();
+            conn.close();
+            return oggetto;
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return null;
+    
+    }
+    
+    
+    
+    public Integer cancellaOggetto(Integer idOggetto)
+    {
+        try
+        {
+            Connection con = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+            Statement stmt = con.createStatement();
+            String sql = "DELETE FROM oggetto WHERE id="+idOggetto;
+            // Esecuzione query
+             
+            int row = stmt.executeUpdate(sql);
+            
+
+            stmt.close();
+            con.close();
+            
+            return row;
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        
+           
+        return 0; 
+    
+    } 
+    
+    
+    
+    
+    
+    
 }

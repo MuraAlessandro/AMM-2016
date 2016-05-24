@@ -130,5 +130,67 @@ public class VenditoreFactory {
         return null;
     }
     
-    
+   
+     
+    public Venditore getVenditoreById(Integer id)
+    {
+        try
+        {
+            // path, username, password
+            Connection conn = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+            String query = "select * from venditore where id = ?  ";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            // Si associano i valori
+            stmt.setInt(1, id);
+            // Esecuzione query
+            ResultSet set = stmt.executeQuery();
+           
+            if(set.next())
+            {
+                Venditore venditore = new Venditore();
+                venditore.id = set.getInt("id");
+                venditore.nome = set.getString("nome");
+                venditore.cognome = set.getString("cognome");
+                venditore.username = set.getString("username");
+                venditore.password = set.getString("password");
+                
+                try
+                {
+                    query = "SELECT saldo " +
+                            "FROM conto " +
+                            "JOIN venditore ON conto.id=venditore.IdConto " +
+                            "WHERE venditore.id= "+venditore.id;
+                    Statement st = conn.createStatement();
+                    ResultSet res2 = st.executeQuery(query);
+                    while(res2.next())
+                    {
+                        Conto conto = new Conto();
+                        venditore.conto.setSaldo(res2.getDouble("saldo"));
+                    }
+                    st.close();
+                }
+                catch (SQLException t) 
+                {
+                    t.printStackTrace();
+                }
+                
+                stmt.close();
+                conn.close();
+                
+                return venditore;
+            }
+            
+            stmt.close();
+            conn.close();
+            
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+   
+     
+     
 }

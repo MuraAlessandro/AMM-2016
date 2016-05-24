@@ -75,23 +75,37 @@ and open the template in the editor.
                             <input type="submit" value="invia" id="submit" name="submit">
                         </form>
                     </li>  
+                    Se si vuole modificare o cancellare un oggetto in vendita
+                    allora premi <a href="venditore.html">QUI</a>
+                        
                     <li> Modifica oggetto</li> 
-                    
-                    
-                    
-                    
-                    
-                    <li> Elimina oggetto
+                    <form action="venditore.html" method="GET">
+                         <select name="idO">
+                                <c:forEach var="obje" items="${ob}">
+                                    <option  value="${obje.id}">${obje.nome}</option>
+                                </c:forEach>
+                            </select>
+                        <label for="l">Scegli il campo da modificare:</label>
+                            <select name="l">
+                                    <option value="1">nome</option>
+                                    <option value="2">descrizione</option>
+                                    <option value="3">url</option>
+                                    <option value="4">prezzo</option>
+                                    <option value="5">quantità</option>
+                            </select>
+                            <input type="submit" value="invia" id="go" name="go">
+                        </form>
+                 
+                    <li> Elimina oggetto:
                        
                         <form action="venditore.html" method="GET">
-                            <select name="ogget">
-                                <c:forEach var="objec" items="${ob}">
-                                    <option value="k">lò</option>
+                            <select name="idO">
+                                <c:forEach var="obje" items="${ob}">
+                                    <option value="${obje.id}">${obje.nome}</option>
                                 </c:forEach>
                             </select>
                             <input type="submit" value="invia" id="send" name="send">
                         </form>
-
                     </li>    
                 </ol>       
 
@@ -106,7 +120,6 @@ and open the template in the editor.
                 <label>Prezzo: ${obj.price}</label>
                 <label>Descrizione: ${obj.descrizione}</label>
                 <label>Idvenditore: ${obj.idVenditore}</label>
-                <label>Id: ${obj.id}</label>
                 </div>
             </c:if> 
         </div>    

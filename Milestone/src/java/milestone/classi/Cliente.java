@@ -14,17 +14,5 @@ import java.util.ArrayList;
  */
 public class Cliente extends Utente
 {
-    //mi restituisce un booleano che mi indica che l'utente ha abbastanza soldi
-    public Boolean compra(Cliente cliente, ObjectSale object, ArrayList<ObjectSale> objects){
-        Boolean saldoOk;
-        if(object.getPrice()<=cliente.getConto().getSaldo())
-        {
-                saldoOk=true;
-                cliente.getConto().saldo=cliente.getConto().getSaldo()-object.getPrice();
-                
-        }
-        else
-            saldoOk=false;
-        return saldoOk;
-    }
+  
 }

@@ -140,4 +140,143 @@ public class ClienteFactory {
         }
         return null;
     }
+    
+    
+    public void compra(ObjectSale oggetto, Cliente c, Venditore v) throws SQLException
+    {
+        Connection conn = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+        
+        PreparedStatement elimina = null;
+        PreparedStatement diminuire = null;
+        PreparedStatement aggiungere = null;
+        
+        String sql = "DELETE FROM oggetto WHERE id=? ";
+        String sql2="UPDATE oggetto SET q=? WHERE id=? ";
+        
+        String sql3="UPDATE conto SET saldo=? WHERE conto.id=(SELECT cliente.idConto FROM cliente WHERE cliente.id=?) ";
+        String sql4="UPDATE conto SET saldo=? WHERE conto.id=(SELECT venditore.idConto FROM venditore WHERE venditore.id=?) ";
+        try
+        {
+            conn.setAutoCommit(false);
+            if(oggetto.getQ()>1)
+            {
+                elimina = conn.prepareStatement(sql2);
+                elimina.setInt(1, oggetto.getQ()-1);
+                elimina.setInt(2, oggetto.getId());
+                int c1 = elimina.executeUpdate();
+                if(c1!=1)
+                    conn.rollback();
+            }    
+            else
+            {
+                elimina = conn.prepareStatement(sql);
+                elimina.setInt(1, oggetto.getId());
+                int c1 = elimina.executeUpdate();
+                if(c1!=1)
+                    conn.rollback();
+            }
+        
+            if(c.getConto().getSaldo()>oggetto.getPrice())
+            {
+                diminuire = conn.prepareStatement(sql3);
+                diminuire.setDouble(1, c.getConto().getSaldo()-oggetto.getPrice());
+                diminuire.setInt(2, c.getId());
+            }
+            else
+                conn.rollback();
+            
+            if(c.getConto().getSaldo()>oggetto.getPrice())
+            {
+                aggiungere = conn.prepareStatement(sql4);
+                aggiungere.setDouble(1, v.getConto().getSaldo()+oggetto.getPrice());
+                aggiungere.setInt(2, v.getId());
+            }
+            else
+                conn.rollback();
+            
+            conn.commit();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        
+        }
+        finally
+        {
+            if(elimina != null)
+                elimina.close();
+            if(diminuire != null)
+                diminuire.close();
+            if(aggiungere != null)
+                aggiungere.close();
+            conn.setAutoCommit(true);
+            conn.close();
+        }
+        
+        
+    }
+    
+    
+    
+    public Cliente getClienteById(Integer id)
+    {
+        try
+        {
+            // path, username, password
+            Connection conn = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+            String query = "select * from cliente where id = ?  ";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            // Si associano i valori
+            stmt.setInt(1, id);
+            // Esecuzione query
+            ResultSet set = stmt.executeQuery();
+           
+            if(set.next())
+            {
+                Cliente cl = new Cliente();
+                cl.id = set.getInt("id");
+                cl.nome = set.getString("nome");
+                cl.cognome = set.getString("cognome");
+                cl.username = set.getString("username");
+                cl.password = set.getString("password");
+                
+                try
+                {
+                    query = "SELECT saldo " +
+                            "FROM conto " +
+                            "JOIN venditore ON conto.id=venditore.IdConto " +
+                            "WHERE venditore.id= "+cl.id;
+                    Statement st = conn.createStatement();
+                    ResultSet res2 = st.executeQuery(query);
+                    while(res2.next())
+                    {
+                        Conto conto = new Conto();
+                        cl.conto.setSaldo(res2.getDouble("saldo"));
+                    }
+                    st.close();
+                }
+                catch (SQLException t) 
+                {
+                    t.printStackTrace();
+                }
+                
+                stmt.close();
+                conn.close();
+                
+                return cl;
+            }
+            
+            stmt.close();
+            conn.close();
+            
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    
+    
 }

@@ -52,7 +52,12 @@ public class VenditoreServlet extends HttpServlet {
            }
         ArrayList<ObjectSale> objects = ObjectFactory.getInstance().getOggetti();
        
+           Venditore s =(Venditore) session.getAttribute("utente");
+           Integer idVenditore=s.getId();
            
+            ArrayList<ObjectSale> objId=ObjectFactory.getInstance().getOggettoByVend(idVenditore);
+            request.setAttribute("ob", objId);
+        
             if(request.getParameter("submit") != null){
                 
                     //per calcolare un id differente per tutti gli oggetti
@@ -88,17 +93,31 @@ public class VenditoreServlet extends HttpServlet {
                         request.setAttribute("form", null);
                         request.getRequestDispatcher("venditore.jsp").forward(request, response);
                     }
+                    
                     ObjectSale o=ObjectFactory.getInstance().nuovoOggetto(obj);
                    
-                    
-                      request.setAttribute("obj", o);
-                      request.setAttribute("form", true);
-                    
+                    if(o != null)
+                    { 
+                        request.setAttribute("obj", o);
+                        request.setAttribute("form", true);
+                    }
                   
-                   
-             
-        
+                
+            
             }
+            
+                // elimina l'oggetto
+                    if(request.getParameter("send") != null)
+                    {
+                    //restituisce un valore se è vero visualizza nella jsp che è stato eliminato
+                    //idoggetto
+                      
+                        
+                        Integer res=ObjectFactory.getInstance().cancellaOggetto(Integer.parseInt(request.getParameter("idO")));
+                        request.getRequestDispatcher("venditore.jsp").forward(request, response);
+                    }
+            
+            
        
             //se la sessione è in atto e l'utente è un venditore va in venditore.jsp
             if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Venditore)

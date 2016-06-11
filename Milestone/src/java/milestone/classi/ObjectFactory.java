@@ -374,6 +374,120 @@ public class ObjectFactory {
     
     
     
+    public Integer modificaOggetto(ObjectSale ob, Integer idOggetto, String nome, String imm, String descrizione, Integer q, Double p)
+    {
+        try
+        {
+            Connection con = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+            
+            String sql = "update oggetto set nome= ? , url= ? , descrizione = ? , q= ? , price= ? where id= ? ";
+            // Esecuzione query
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            if(nome=="")
+                stmt.setString(1, ob.getNome());
+            else
+                stmt.setString(1, nome);
+            if(imm=="")
+                stmt.setString(2, ob.getUrl());
+            else
+                stmt.setString(2, imm);
+            
+            if(descrizione=="")
+                stmt.setString(3, ob.getDescrizione());
+            else
+                stmt.setString(3, descrizione);
+            
+            
+            if(q==0)
+                stmt.setInt(4, ob.getQ());
+            else
+                stmt.setInt(4, q);
+            
+            if(p==0.0)
+                stmt.setDouble(5, ob.getPrice());
+            else
+                stmt.setDouble(5, p);
+        
+            
+            stmt.setInt(6, idOggetto);
+            
+            
+            int row = stmt.executeUpdate();
+            
+
+            stmt.close();
+            con.close();
+            
+            return row;
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        
+           
+        return 0; 
+    
+    } 
+    
+    
+    public ArrayList<ObjectSale> getOb(String text)
+    {
+        ArrayList<ObjectSale> lista = new ArrayList<ObjectSale>();
+        
+        try
+        {
+            Connection conn = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
+            String query = "select * from oggetto where nome LIKE ? OR descrizione LIKE ?";       
+            PreparedStatement stmt = conn.prepareStatement(query);
+            // Assegna dati
+            text = "%"+text+"%";
+            stmt.setString(1, text);
+            stmt.setString(2, text);
+            ResultSet res = stmt.executeQuery();
+            
+            while(res.next())
+            {
+                ObjectSale current = new ObjectSale();
+                current.setId(res.getInt("id"));
+                current.setNome(res.getString("nome"));
+                current.setDescrizione(res.getString("descrizione"));
+                current.setUrl(res.getString("url"));
+                current.setQ(res.getInt("q"));
+                current.setPrice(res.getDouble("price"));
+                lista.add(current);
+            }
+            
+            stmt.close();
+            conn.close();
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return lista;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 }

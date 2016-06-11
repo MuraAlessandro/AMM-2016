@@ -60,13 +60,16 @@ public class Login extends HttpServlet {
         // utilizzo instanceof per determinare che l'utente sia un venditore o cliente e li mando alla corrispettive pagine.jsp
         if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
               //passo la lista degli oggetti in vendita 
-              ArrayList<ObjectSale> lista = ObjectFactory.getInstance().getSellingObjectList();
+              ArrayList<ObjectSale> lista = ObjectFactory.getInstance().getOggetti();
               request.setAttribute("objects", lista);
               request.getRequestDispatcher("cliente.jsp").forward(request, response); 
         }
         if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Venditore){
-              request.getRequestDispatcher("venditore.jsp").forward(request, response);
-         
+            Venditore s =(Venditore) session.getAttribute("utente");
+            Integer idVenditore=s.getId();
+            ArrayList<ObjectSale> objId=ObjectFactory.getInstance().getOggettoByVend(idVenditore);
+            request.setAttribute("ob", objId);
+            request.getRequestDispatcher("venditore.jsp").forward(request, response);    
         }
         
        /* Cliente a=ClienteFactory.getInstance().getClienteById(1);
@@ -100,7 +103,11 @@ public class Login extends HttpServlet {
                 {
                   //  int a=v.getId();
                     session.setAttribute("utente", v);
-                    request.setAttribute("id", v.getId());//mi serve per il caricamento dell'oggetto
+                    //request.setAttribute("id", v.getId());//mi serve per il caricamento dell'oggetto
+                    Venditore s =(Venditore) session.getAttribute("utente");
+                    Integer idVenditore=s.getId();
+                    ArrayList<ObjectSale> objId=ObjectFactory.getInstance().getOggettoByVend(idVenditore);
+                    request.setAttribute("ob", objId);
                     request.getRequestDispatcher("venditore.jsp").forward(request, response);  
                     
                 }
@@ -108,6 +115,7 @@ public class Login extends HttpServlet {
 
             request.setAttribute("error", true);
         }
+        
         request.getRequestDispatcher("login.jsp").forward(request, response);
  
     }

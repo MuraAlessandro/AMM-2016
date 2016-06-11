@@ -51,7 +51,7 @@ and open the template in the editor.
         <div id="content">    
             <c:if test="${form==null}">   
                 <ol>   
-                    <li>Aggiungi oggetto   
+                    <li><strong>Aggiungi oggetto </strong>  
                         <form action="venditore.html" method="GET">
                             <!--il tag label è l'etichetta che è correlata ad uno specifico input-->
                             <label for="nome">Nome oggetto:</label>
@@ -75,31 +75,35 @@ and open the template in the editor.
                             <input type="submit" value="invia" id="submit" name="submit">
                         </form>
                     </li>  
-                    Se si vuole modificare o cancellare un oggetto in vendita
-                    allora premi <a href="venditore.html">QUI</a>
                         
-                    <li> Modifica oggetto</li> 
-                    <form action="venditore.html" method="GET">
-                         <select name="idO">
+                    <li><strong> Modifica oggetto</strong>
+                        <form action="venditore.html" method="GET">
+                          <select name="idO" id="idO">
                                 <c:forEach var="obje" items="${ob}">
                                     <option  value="${obje.id}">${obje.nome}</option>
                                 </c:forEach>
-                            </select>
-                        <label for="l">Scegli il campo da modificare:</label>
-                            <select name="l">
-                                    <option value="1">nome</option>
-                                    <option value="2">descrizione</option>
-                                    <option value="3">url</option>
-                                    <option value="4">prezzo</option>
-                                    <option value="5">quantità</option>
-                            </select>
-                            <input type="submit" value="invia" id="go" name="go">
+                          </select>
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nome" name="nome">
+
+                            <label for="url">Immagine:</label> 
+                            <input type="url" id="url" name="url" >
+
+                            <label for="descrizione">Descrizione:</label>
+                            <textarea rows="10" cols="20" id="descrizione" name="descrizione" ></textarea>
+
+                            <label for="q">Quantità:</label>
+                            <input type="number" id="q" name="q" min="1" ><!--Utilizzo il tag min perchè non è possibile avere meno di 0 oggetti, un valore negativo non avrebbe significato-->
+
+                            <label for="price">Prezzo:</label>
+                            <input type="number" id="price" name="price" step="0.01" min="0" >
+                            <input type="submit" value="modify" id="modify" name="modify">
                         </form>
-                 
-                    <li> Elimina oggetto:
+                    </li>     
+                    <li> <strong>Elimina oggetto:</strong>
                        
                         <form action="venditore.html" method="GET">
-                            <select name="idO">
+                            <select name="idO" id="idO">
                                 <c:forEach var="obje" items="${ob}">
                                     <option value="${obje.id}">${obje.nome}</option>
                                 </c:forEach>

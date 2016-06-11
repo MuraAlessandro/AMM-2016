@@ -42,23 +42,24 @@ public class VenditoreServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession(false);//controllo se è gia in corso una sessione 
+        ArrayList<ObjectSale> objects = ObjectFactory.getInstance().getOggetti();
         //se non e' in corso la sessione o non e' un venditore allora lo manda alla jsp accesso negato
         if(session == null){
                     request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
-           }
-           if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
+        }
+        if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
                     request.getRequestDispatcher("accessoNegato.jsp").forward(request, response);
 
-           }
-        ArrayList<ObjectSale> objects = ObjectFactory.getInstance().getOggetti();
-       
-           Venditore s =(Venditore) session.getAttribute("utente");
-           Integer idVenditore=s.getId();
-           
+        }
+        
+        if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Venditore){
+            Venditore s =(Venditore) session.getAttribute("utente");
+            Integer idVenditore=s.getId();
+            
             ArrayList<ObjectSale> objId=ObjectFactory.getInstance().getOggettoByVend(idVenditore);
             request.setAttribute("ob", objId);
-        
-            if(request.getParameter("submit") != null){
+        }
+        if(request.getParameter("submit") != null){
                 
                     //per calcolare un id differente per tutti gli oggetti
                    
@@ -111,17 +112,50 @@ public class VenditoreServlet extends HttpServlet {
                     {
                     //restituisce un valore se è vero visualizza nella jsp che è stato eliminato
                     //idoggetto
-                      
-                        
+                                             
                         Integer res=ObjectFactory.getInstance().cancellaOggetto(Integer.parseInt(request.getParameter("idO")));
+                        Venditore s =(Venditore) session.getAttribute("utente");
+                        Integer idVenditore=s.getId();  
+                        ArrayList<ObjectSale> objId = ObjectFactory.getInstance().getOggettoByVend(idVenditore);
+                        request.setAttribute("ob", objId);
                         request.getRequestDispatcher("venditore.jsp").forward(request, response);
                     }
             
-            
+                //modifica
+                    if(request.getParameter("modify") != null)
+                    {
+                        ObjectSale u= ObjectFactory.getInstance().getOggetto(Integer.parseInt(request.getParameter("idO")));
+                        //metodo che modifica l'oggetto
+                        Integer q=0;
+                        Double price=0.0;
+                        try{   q=Integer.parseInt(request.getParameter("q")); }
+                        catch(RuntimeException exception){ q=0; }
+                        
+                        try{   price=Double.parseDouble(request.getParameter("price"));  }
+                        catch(RuntimeException exception){ price=0.0; }
+                        Integer r=ObjectFactory.getInstance().modificaOggetto(u,Integer.parseInt(request.getParameter("idO")),request.getParameter("nome"),request.getParameter("url"),request.getParameter("descrizione"), q , price);                                                                           
+                    
+                        Venditore s =(Venditore) session.getAttribute("utente");
+                        Integer idVenditore=s.getId();  
+                        ArrayList<ObjectSale> objId = ObjectFactory.getInstance().getOggettoByVend(idVenditore);
+                        request.setAttribute("ob", objId);
+                        request.getRequestDispatcher("venditore.jsp").forward(request, response);
+                    
+                    
+                    }                    
+                    
+                    
+                    
        
             //se la sessione è in atto e l'utente è un venditore va in venditore.jsp
             if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Venditore)
-                request.getRequestDispatcher("venditore.jsp").forward(request, response);
+            {
+                        Venditore s =(Venditore) session.getAttribute("utente");
+                        Integer idVenditore=s.getId();  
+                        ArrayList<ObjectSale> objId = ObjectFactory.getInstance().getOggettoByVend(idVenditore);
+                        request.setAttribute("ob", objId);
+                        request.getRequestDispatcher("venditore.jsp").forward(request, response);
+            }     
             else
                 request.getRequestDispatcher("login.jsp").forward(request, response);
         

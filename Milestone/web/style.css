@@ -100,7 +100,7 @@ input, textarea
 
 /*i seguenti id fanno tutti parte dei tag input che voglio fare della stessa dimensione
   sono esclusi i tag input riguardanti submit e reset*/
-#nome, #url, #q, #price , #user, #psw, textarea 
+#nome, #url, #q, #price , #user, #psw, textarea, #ricerca
 { 
     width:170px; 
     padding: 2px; 
@@ -170,31 +170,64 @@ footer
 @media screen and (min-width:1024px)
 {
     /*#social {  margin-left:33%; margin-right:33%;}*/
+    #rcr
+    { 
+        margin-top:100px;
+        margin-left:33%; 
+        margin-right:33%;
+        text-align:center;
+    }
+    
     #main 
     { 
-        margin-top:-10%;
+        margin-left:230px;
+        padding:10px;
+        border-left: 1px solid gray;
     }
     
     #sidebar 
     {
-        margin-right:80%;
+        float:left;
+        width:220px;
         padding:10px; 
+        height:90%;
         margin-bottom:10px;
     }
 
 }
 @media screen and (min-width:481px) and (max-width:1023px)
 {
-    #content 
+   
+    
+    #main 
+    { 
+        padding:10px;
+        margin-left:230px;
+        border-left: 1px solid gray;
+    }
+    #sidebar 
+    {
+        float:left;
+        width:220px;
+        padding:10px; 
+        margin-bottom:10px;
+    }
+    #content,#rcr
     {
         margin-left:33%; 
         margin-right:33%; 
+    }
+    #rcr 
+    {   
+        margin-top:100px; 
+        text-align:center; 
     }
 
 }
 @media screen and (max-width:480px)
 {
-    #content 
+    
+    #content,#rcr
     { 
         margin-left:33%; 
         margin-right:33%;
@@ -221,7 +254,7 @@ footer
         margin-bottom:10%; 
     }
     
-    nav 
+    nav,#rcr
     { 
         text-align:center; 
     }
@@ -239,7 +272,7 @@ footer
     }
     
     /*ridimensiono i form (ad eccezione dei pulsanti)*/
-    #nome, #url, #q, #price , #user, #psw, textarea 
+    #nome, #url, #q, #price , #user, #psw, textarea, #idO, #ricerca
     {
         width:80%; 
     }

@@ -25,6 +25,12 @@ and open the template in the editor.
 	<!--link per foglio di stile e per l'icona del sito-->
         <link href="style.css" rel="stylesheet" type="text/css" media="screen">
 	<link rel="icon" href="M3/IMG/icon.ico">
+        
+        
+        <!-- jQuery -->
+        <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+        
     </head>
     <body>
         <header>
@@ -43,20 +49,38 @@ and open the template in the editor.
         </div>
         
         <div id="content_page">
-                <table><!--Creo una tabella che contiene gli oggetti che saranno venduti all'interno del sito-->
+                <div id="rcr">
+                    <label for="ricerca">Filtra:</label>
+                    <input type="text" id="ricerca" size="15"/>
+                </div>
+                
+                
+                <h2 id="demo"></h2>
+                
+                <c:if test="${conferma == true}">
+                    <h2>Riepilogo: per confermare l'acquisto premi su ok</h2>         
+                </c:if>
+                
+                <table id="objects"><!--Creo una tabella che contiene gli oggetti che saranno venduti all'interno del sito-->
                     <c:if test="${ok == null}">
                             <tr><th>Nome</th><th>Foto</th><th class="space_table">Quantità</th><th class="space_table">Prezzo</th><th class="space_table">Link</th></tr>
                     </c:if>
-                    <c:forEach var="objec" items="${objects}">
-                    <tr>
-                        <td>${objec.nome}</td>
-                        <td><img title=" scarpa " alt="Foto di una scarpa" src="${objec.url}" width="150" height="150"></td>
-                        <td>${objec.q}</td>
-                        <td>${objec.price}</td>
-                        <td><a href="cliente.html?obID=${objec.id}" class="space_table">Aggiungi al carrello</a></td>
-                    </tr>
-                    </c:forEach>
                 
+                
+                    <c:forEach var="objec" items="${objects}">
+                        <tr>
+                            <td>${objec.nome}</td>
+                            <td><img title=" scarpa " alt="Foto di una scarpa" src="${objec.url}" width="150" height="150"> </td>
+                            <td>${objec.q}</td> 
+                            <td> ${objec.price} </td>
+                            <td><a href="cliente.html?obID=${objec.id}" class="space_table">Aggiungi al carrello</a></td>
+                        </tr>
+                    </c:forEach>
+                    
+                    
+                    
+                    
+                    
                 <!--stampo il riepilogo-->
                 <c:if test="${conferma == true}">
                     <!--<h2>Vuoi confermare l'acquisto del seguente oggetto?</h2>--> 

@@ -142,7 +142,7 @@ public class ClienteFactory {
     }
     
     
-    public void compra(ObjectSale oggetto, Cliente c, Venditore v) throws SQLException
+    public Boolean compra(ObjectSale oggetto, Cliente c, Venditore v) throws SQLException
     {
         Connection conn = DriverManager.getConnection(connectionString, "MuraAlessandro", "0000");
         
@@ -155,6 +155,8 @@ public class ClienteFactory {
         
         String sql3="UPDATE conto SET saldo=? WHERE conto.id=(SELECT cliente.idConto FROM cliente WHERE cliente.id=?) ";
         String sql4="UPDATE conto SET saldo=? WHERE conto.id=(SELECT venditore.idConto FROM venditore WHERE venditore.id=?) ";
+        if(c.getConto().getSaldo()<oggetto.getPrice())
+            return false;
         try
         {
             conn.setAutoCommit(false);
@@ -165,41 +167,53 @@ public class ClienteFactory {
                 elimina.setInt(2, oggetto.getId());
                 int c1 = elimina.executeUpdate();
                 if(c1!=1)
+                {
                     conn.rollback();
+                    return false;
+                }
             }    
-            else
+            else if(oggetto.getQ()==1)
             {
+                
                 elimina = conn.prepareStatement(sql);
                 elimina.setInt(1, oggetto.getId());
                 int c1 = elimina.executeUpdate();
                 if(c1!=1)
+                {
                     conn.rollback();
+                    return false;
+                }
             }
         
-            if(c.getConto().getSaldo()>oggetto.getPrice())
+            if(c.getConto().getSaldo()>=oggetto.getPrice())
             {
                 diminuire = conn.prepareStatement(sql3);
                 diminuire.setDouble(1, c.getConto().getSaldo()-oggetto.getPrice());
                 diminuire.setInt(2, c.getId());
             }
             else
+            {
                 conn.rollback();
+                return false;
+            }
             
-            if(c.getConto().getSaldo()>oggetto.getPrice())
+            if(c.getConto().getSaldo()>=oggetto.getPrice())
             {
                 aggiungere = conn.prepareStatement(sql4);
                 aggiungere.setDouble(1, v.getConto().getSaldo()+oggetto.getPrice());
                 aggiungere.setInt(2, v.getId());
             }
             else
+            {
                 conn.rollback();
+                return false;
+            }
             
             conn.commit();
         }
         catch(SQLException e)
         {
-            e.printStackTrace();
-        
+            e.printStackTrace();    
         }
         finally
         {
@@ -211,8 +225,9 @@ public class ClienteFactory {
                 aggiungere.close();
             conn.setAutoCommit(true);
             conn.close();
+            
         }
-        
+        return true;
         
     }
     

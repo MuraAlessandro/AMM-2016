@@ -76,13 +76,14 @@ public class ClientServlet extends HttpServlet {
        request.setAttribute("ok", false);//per stampare che non ha abbastanza soldi
        Cliente cliente=(Cliente) session.getAttribute("utente");
        
-      ObjectSale u= ObjectFactory.getInstance().getOggetto(Integer.parseInt(request.getParameter("i")));
+       ObjectSale u= ObjectFactory.getInstance().getOggetto(Integer.parseInt(request.getParameter("i")));
       //restituire il venditore
-     
-      Venditore v=VenditoreFactory.getInstance().getVenditoreById(u.getIdVenditore());
+       Boolean saldoOk=false;
+       Venditore v=VenditoreFactory.getInstance().getVenditoreById(u.getIdVenditore());
             try {
-                ClienteFactory.getInstance().compra(u, cliente, v);
-            } catch (SQLException ex) {
+                saldoOk=ClienteFactory.getInstance().compra(u, cliente, v);
+            } 
+            catch (SQLException ex) {
                 Logger.getLogger(ClientServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -110,16 +111,24 @@ public class ClientServlet extends HttpServlet {
                         v.vendi(v,ogg);
                     }
        }*/
+      if(saldoOk==true) //se è true il cliente ha abbastanza soldi per comprare l'oggetto
+            request.setAttribute("ok", true);
+      
+      
+      
        request.getRequestDispatcher("cliente.jsp").forward(request, response);        
     }
      
      
      
-        request.setAttribute("objects", lista);   
+        //request.setAttribute("objects", lista);   
         //se la sessione è in atto e l'utente è un cliente va in cliente.jsp
         if(session.getAttribute("utente")!=null && (Utente)session.getAttribute("utente") instanceof Cliente){
-             
+            //  lista = ObjectFactory.getInstance().getOggetti();
               request.setAttribute("objects", lista);
+              
+              ObjectSale u= ObjectFactory.getInstance().getOggetto(Integer.parseInt(request.getParameter("i")));
+              Venditore v=VenditoreFactory.getInstance().getVenditoreById(u.getIdVenditore());
               request.getRequestDispatcher("cliente.jsp").forward(request, response); 
         }
         else

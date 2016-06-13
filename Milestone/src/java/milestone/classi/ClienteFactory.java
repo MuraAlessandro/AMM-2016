@@ -190,6 +190,12 @@ public class ClienteFactory {
                 diminuire = conn.prepareStatement(sql3);
                 diminuire.setDouble(1, c.getConto().getSaldo()-oggetto.getPrice());
                 diminuire.setInt(2, c.getId());
+                int d = diminuire.executeUpdate();
+                if(d!=1)
+                {
+                    conn.rollback();
+                    return false;
+                }
             }
             else
             {
@@ -202,6 +208,12 @@ public class ClienteFactory {
                 aggiungere = conn.prepareStatement(sql4);
                 aggiungere.setDouble(1, v.getConto().getSaldo()+oggetto.getPrice());
                 aggiungere.setInt(2, v.getId());
+                int a = aggiungere.executeUpdate();
+                if(a!=1)
+                {
+                    conn.rollback();
+                    return false;
+                }
             }
             else
             {
@@ -259,8 +271,8 @@ public class ClienteFactory {
                 {
                     query = "SELECT saldo " +
                             "FROM conto " +
-                            "JOIN venditore ON conto.id=venditore.IdConto " +
-                            "WHERE venditore.id= "+cl.id;
+                            "JOIN cliente ON conto.id=cliente.IdConto " +
+                            "WHERE cliente.id= "+cl.id;
                     Statement st = conn.createStatement();
                     ResultSet res2 = st.executeQuery(query);
                     while(res2.next())

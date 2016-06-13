@@ -75,19 +75,19 @@ public class ClientServlet extends HttpServlet {
     if(request.getParameter("submit") != null) {
        request.setAttribute("ok", false);//per stampare che non ha abbastanza soldi
        Cliente cliente=(Cliente) session.getAttribute("utente");
-       
        ObjectSale u= ObjectFactory.getInstance().getOggetto(Integer.parseInt(request.getParameter("i")));
       //restituire il venditore
        Boolean saldoOk=false;
        Venditore v=VenditoreFactory.getInstance().getVenditoreById(u.getIdVenditore());
-            try {
-                saldoOk=ClienteFactory.getInstance().compra(u, cliente, v);
-            } 
-            catch (SQLException ex) {
-                Logger.getLogger(ClientServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-
+        try {
+            saldoOk=ClienteFactory.getInstance().compra(u, cliente, v);
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(ClientServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+      Cliente c=ClienteFactory.getInstance().getClienteById(cliente.getId());
+      session.setAttribute("utente", c);  
     //ricerco l'oggetto con id che ho passato con input hidden
       /*for(ObjectSale u : lista){
            if(u.getId().equals(Integer.parseInt(request.getParameter("i"))))

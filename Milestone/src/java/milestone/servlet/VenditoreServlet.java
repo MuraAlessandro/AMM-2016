@@ -117,6 +117,7 @@ public class VenditoreServlet extends HttpServlet {
                         Venditore s =(Venditore) session.getAttribute("utente");
                         Integer idVenditore=s.getId();  
                         ArrayList<ObjectSale> objId = ObjectFactory.getInstance().getOggettoByVend(idVenditore);
+                        request.setAttribute("delete", true);
                         request.setAttribute("ob", objId);
                         request.getRequestDispatcher("venditore.jsp").forward(request, response);
                     }
@@ -138,6 +139,7 @@ public class VenditoreServlet extends HttpServlet {
                         Venditore s =(Venditore) session.getAttribute("utente");
                         Integer idVenditore=s.getId();  
                         ArrayList<ObjectSale> objId = ObjectFactory.getInstance().getOggettoByVend(idVenditore);
+                        request.setAttribute("modif", true);
                         request.setAttribute("ob", objId);
                         request.getRequestDispatcher("venditore.jsp").forward(request, response);
                     

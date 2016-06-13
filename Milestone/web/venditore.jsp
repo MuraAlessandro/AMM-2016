@@ -47,7 +47,13 @@ and open the template in the editor.
             <div id="content_page" class="error">
                 <h2>${er}</h2>
             </div>
-           </c:if>
+        </c:if>
+        <c:if test="${delete==true}">
+            <h2>L'oggetto è stato cancellato</h2>
+        </c:if>
+        <c:if test="${modif==true}">
+                <h2>L'oggetto è stato modificato</h2>
+        </c:if>
         <div id="content">    
             <c:if test="${form==null}">   
                 <ol>   
@@ -123,9 +129,11 @@ and open the template in the editor.
                 <label>Quantità: ${obj.q}</label>
                 <label>Prezzo: ${obj.price}</label>
                 <label>Descrizione: ${obj.descrizione}</label>
-                <label>Idvenditore: ${obj.idVenditore}</label>
+                <!--<label>Idvenditore: ${obj.idVenditore}</label>-->
                 </div>
             </c:if> 
+            
+            
         </div>    
          
         <%@include file="footer.jsp" %>

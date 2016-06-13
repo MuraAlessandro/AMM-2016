@@ -49,13 +49,13 @@ and open the template in the editor.
         </div>
         
         <div id="content_page">
-                <div id="rcr">
+                <div id="rcr"><!--Textfield per la ricerca di un oggetto-->
                     <label for="ricerca">Filtra:</label>
                     <input type="text" id="ricerca" size="15"/>
                 </div>
                 
                 
-                <h2 id="demo"></h2>
+                <h2 id="demo"></h2><!--il contenuto dipende dal file script.js-->
                 
                 <c:if test="${conferma == true}">
                     <h2>Riepilogo: per confermare l'acquisto premi su ok</h2>         

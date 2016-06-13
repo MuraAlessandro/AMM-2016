@@ -84,7 +84,7 @@ and open the template in the editor.
                         
                     <li><strong> Modifica oggetto</strong>
                         <form action="venditore.html" method="GET">
-                          <select name="idO" id="idO">
+                          <select name="idO" id="idO"><!--creazione del menu a tendina-->
                                 <c:forEach var="obje" items="${ob}">
                                     <option  value="${obje.id}">${obje.nome}</option>
                                 </c:forEach>

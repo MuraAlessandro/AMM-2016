@@ -155,24 +155,24 @@ public class ClienteFactory {
         
         String sql3="UPDATE conto SET saldo=? WHERE conto.id=(SELECT cliente.idConto FROM cliente WHERE cliente.id=?) ";
         String sql4="UPDATE conto SET saldo=? WHERE conto.id=(SELECT venditore.idConto FROM venditore WHERE venditore.id=?) ";
-        if(c.getConto().getSaldo()<oggetto.getPrice())
+        if(c.getConto().getSaldo()<oggetto.getPrice())//se il saldo è minore del prezzo dell'oggetto allora, acquisizione dell'oggetto non avviene
             return false;
         try
         {
             conn.setAutoCommit(false);
-            if(oggetto.getQ()>1)
+            if(oggetto.getQ()>1)//se la quantità dell'oggetto è >1 allora devo decrementare la quantita
             {
                 elimina = conn.prepareStatement(sql2);
                 elimina.setInt(1, oggetto.getQ()-1);
                 elimina.setInt(2, oggetto.getId());
                 int c1 = elimina.executeUpdate();
-                if(c1!=1)
+                if(c1!=1)//se la executeUpdate restituisce un valore != 1, allora o non ci sono occorrenze oppure è più di una, in sintesi si è verificato un errore
                 {
-                    conn.rollback();
+                    conn.rollback();//riporto il database allo stato precedente alla setAutoCommit(false)
                     return false;
                 }
             }    
-            else if(oggetto.getQ()==1)
+            else if(oggetto.getQ()==1)//altrimenti elimino l'oggetto
             {
                 
                 elimina = conn.prepareStatement(sql);
@@ -188,7 +188,7 @@ public class ClienteFactory {
             if(c.getConto().getSaldo()>=oggetto.getPrice())
             {
                 diminuire = conn.prepareStatement(sql3);
-                diminuire.setDouble(1, c.getConto().getSaldo()-oggetto.getPrice());
+                diminuire.setDouble(1, c.getConto().getSaldo()-oggetto.getPrice());//setto il nuovo valore del saldo, con la detrazione del prezzo dell'oggetto comprato
                 diminuire.setInt(2, c.getId());
                 int d = diminuire.executeUpdate();
                 if(d!=1)
@@ -206,7 +206,7 @@ public class ClienteFactory {
             if(c.getConto().getSaldo()>=oggetto.getPrice())
             {
                 aggiungere = conn.prepareStatement(sql4);
-                aggiungere.setDouble(1, v.getConto().getSaldo()+oggetto.getPrice());
+                aggiungere.setDouble(1, v.getConto().getSaldo()+oggetto.getPrice());//aumento il saldo del venditore pari all'ammontare del prezzo del venditore
                 aggiungere.setInt(2, v.getId());
                 int a = aggiungere.executeUpdate();
                 if(a!=1)
@@ -221,25 +221,25 @@ public class ClienteFactory {
                 return false;
             }
             
-            conn.commit();
+            conn.commit();//salvo in maniera permanente le modifiche del database
         }
         catch(SQLException e)
         {
             e.printStackTrace();    
         }
-        finally
+        finally//blocco che viene eseguito comunque
         {
             if(elimina != null)
-                elimina.close();
+                elimina.close();//chiudo lo statement
             if(diminuire != null)
                 diminuire.close();
             if(aggiungere != null)
                 aggiungere.close();
-            conn.setAutoCommit(true);
-            conn.close();
+            conn.setAutoCommit(true);//ripristino il comportamento standard
+            conn.close();//chiudo la connessione
             
         }
-        return true;
+        return true;//se tutto è andato ok allora la funzione restituisce true
         
     }
     

@@ -110,9 +110,7 @@ public class VenditoreServlet extends HttpServlet {
                 // elimina l'oggetto
                     if(request.getParameter("send") != null)
                     {
-                    //restituisce un valore se è vero visualizza nella jsp che è stato eliminato
-                    //idoggetto
-                                             
+                    //restituisce un valore se è vero visualizza nella jsp che è stato eliminato                                       
                         Integer res=ObjectFactory.getInstance().cancellaOggetto(Integer.parseInt(request.getParameter("idO")));
                         Venditore s =(Venditore) session.getAttribute("utente");
                         Integer idVenditore=s.getId();  
@@ -122,7 +120,7 @@ public class VenditoreServlet extends HttpServlet {
                         request.getRequestDispatcher("venditore.jsp").forward(request, response);
                     }
             
-                //modifica
+                    //modifica
                     if(request.getParameter("modify") != null)
                     {
                         ObjectSale u= ObjectFactory.getInstance().getOggetto(Integer.parseInt(request.getParameter("idO")));

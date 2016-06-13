@@ -384,9 +384,9 @@ public class ObjectFactory {
             // Esecuzione query
             PreparedStatement stmt = con.prepareStatement(sql);
             
-            if(nome=="")
+            if(nome=="")//se non viene passato niente, allora il valore del campo non è da modificare, quindi copio semplicemente il valore che è gia stato salvato nel database in precedenza
                 stmt.setString(1, ob.getNome());
-            else
+            else//altrimenti imposto il nome nuovo
                 stmt.setString(1, nome);
             if(imm=="")
                 stmt.setString(2, ob.getUrl());
@@ -399,9 +399,9 @@ public class ObjectFactory {
                 stmt.setString(3, descrizione);
             
             
-            if(q==0)
-                stmt.setInt(4, ob.getQ());
-            else
+            if(q==0)//ho impostato il valore iniziale a 0, se non è stato modificato vorra' dire che devo mantenere il valore precedenre
+                stmt.setInt(4, ob.getQ());//quindi ricopio il valore contenuto nel database
+            else//altrimenti inserisco il nuovo valore, che poi sara' inserito all'interno del database
                 stmt.setInt(4, q);
             
             if(p==0.0)
@@ -469,24 +469,6 @@ public class ObjectFactory {
         
         return lista;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
